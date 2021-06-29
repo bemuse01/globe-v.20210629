@@ -6,7 +6,7 @@ export default {
         const position = []
         const len = grid.length
 
-        for(let i = 0; i < len * 4; i++){
+        for(let i = 0; i < len * 5; i++){
             const {lat, lon} = grid[i % len]
 
             const r1 = Math.random() * halfRange - halfRange
