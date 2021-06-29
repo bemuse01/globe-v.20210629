@@ -6,7 +6,7 @@ import {FilmPass} from '../../postprocess/FilmPass.js'
 import PUBLIC_METHOD from '../../method/method.js'
 import POINT from './point/globe.point.build.js'
 import BLOOM from './bloom/globe.bloom.build.js'
-import SPHERE from './sphere/globe.sphere.build.js'
+import COVER from './cover/globe.cover.build.js'
 import LIGHT from './light/globe.light.build.js'
 
 
@@ -31,7 +31,7 @@ export default class{
         this.modules = {
             bloom: BLOOM,
             point: POINT,
-            sphere: SPHERE,
+            cover: COVER,
             light: LIGHT
         }
 
