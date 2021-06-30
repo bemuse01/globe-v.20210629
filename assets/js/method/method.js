@@ -39,5 +39,12 @@ export default {
         const y = radius * Math.cos(phi)
         const z = radius * Math.sin(phi) * Math.sin(theta)
         return {x, y, z}
+    },
+    shaderNormalize(){
+        return `
+            float shaderNormalize(float x, float a, float b, float min, float max){
+                return (b - a) * (x - min) / (max - min) + a;
+            }
+        `
     }
 }

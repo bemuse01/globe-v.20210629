@@ -15,7 +15,8 @@ export default class{
             count: 20,
             color: POINT_PARAM.color,
             intensity: 2.75,
-            dist: POINT_PARAM.radius + 150,
+            // dist: POINT_PARAM.radius + 150,
+            dist: POINT_PARAM.radius + 160,
             radius: POINT_PARAM.radius + 270,
             step: 21
         }
@@ -47,7 +48,7 @@ export default class{
             this.local.add(light)
         }
         
-        this.local.rotation.z = 60 * RADIAN 
+        this.local.rotation.z = 70 * RADIAN 
     }
     createDistance(){
         const dist = []

@@ -14,12 +14,12 @@ export default class{
     init(){
         this.param = {
             // radius: CHILD_PARAM.radius + 5,
-            radius: POINT_PARAM.radius + 25,
+            radius: POINT_PARAM.radius + 34,
             seg: 128,
             layers: PROCESS,
             // color: 0x1f9eff,
             color: POINT_PARAM.color,
-            size: 0.9,
+            size: 0.95,
             strength: 20.0,
             brightness: 0.1
         }
@@ -42,7 +42,8 @@ export default class{
         this.mesh = new THREE.Mesh(geometry, material)
         // this.mesh.layers.set(this.param.layers)
         // this.mesh.position.set(-3, 4)
-        this.mesh.position.set(6, 6)
+        // this.mesh.position.set(6, 6)
+        this.mesh.rotation.z = 45 * RADIAN
     }
     createGeometry(){
         return new THREE.CircleGeometry(this.param.radius, this.param.seg)

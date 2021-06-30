@@ -40,7 +40,8 @@ export default class{
     createMaterial(){
         return new THREE.MeshPhongMaterial({
             color: this.param.color,
-            transparent: true
+            transparent: true,
+            opacity: 0.5
         })
     }
 }
