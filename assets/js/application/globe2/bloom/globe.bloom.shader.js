@@ -30,10 +30,11 @@ export default {
             vec2 pos = vec2(vUv - vec2(0.5));
             float theta = getTheta(pos);
 
-            float depth = shaderNormalize(theta * sign(theta), 0.0, 1.05, 0.0, 180.0 * RADIAN);
+            // float depth = shaderNormalize(theta * sign(theta), 1.005, 0.97, 0.0, 180.0 * RADIAN);
+            float depth = shaderNormalize(theta < 0.0 ? theta : -theta, 0.97, 1.005, -180.0 * RADIAN, 0.0);
             float strength = uStrength - shaderNormalize(theta * sign(theta), 0.0, uStrength, 0.0, 180.0 * RADIAN);
 
-            float opacity = dist <= uSize ? 0.0 : (1.0 - dist) * strength;
+            float opacity = dist <= uSize ? 0.0 : (1.0 * depth - dist) * strength;
 
             gl_FragColor = vec4(uColor + uBrightness, opacity);
         }
