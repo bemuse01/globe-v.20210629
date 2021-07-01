@@ -46,5 +46,17 @@ export default {
                 return (b - a) * (x - min) / (max - min) + a;
             }
         `
+    },
+    getSphereCoord(){
+        return `
+            vec3 getSphereCoord(float p, float t, float radius){
+                float phi = p * ${RADIAN};
+                float theta = t * ${RADIAN};
+                float x = radius * sin(phi) * cos(theta);
+                float y = radius * cos(phi);
+                float z = radius * sin(phi) * sin(theta);
+                return vec3(x, y, z);
+            }
+        `
     }
 }

@@ -12,13 +12,12 @@ export default class{
     // init
     init(){
         this.param = {
-            count: 20,
+            count: 8,
             color: POINT_PARAM.color,
-            intensity: 2.75,
-            // dist: POINT_PARAM.radius + 150,
-            dist: POINT_PARAM.radius + 160,
-            radius: POINT_PARAM.radius + 270,
-            step: 21
+            intensity: 3.5,
+            dist: POINT_PARAM.radius + 300,
+            radius: POINT_PARAM.radius + 420,
+            step: 33
         }
     }
 

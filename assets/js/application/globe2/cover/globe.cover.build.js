@@ -41,7 +41,7 @@ export default class{
         return new THREE.MeshPhongMaterial({
             color: this.param.color,
             transparent: true,
-            opacity: 0.5
+            opacity: 0.7
         })
     }
 }

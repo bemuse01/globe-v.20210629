@@ -13,7 +13,7 @@ import LIGHT from './light/globe.light.build.js'
 export default class{
     constructor(app){
         this.init(app)
-        this.create()
+        this.create(app)
         this.add()
     }
 
@@ -106,12 +106,12 @@ export default class{
 
 
     // create
-    create(){
+    create({renderer}){
         for(const module in this.modules){
             const instance = this.modules[module]
             const group = this.group[module]
 
-            this.comp[module] = new instance({group, size: this.size.obj})
+            this.comp[module] = new instance({group, size: this.size.obj, renderer})
         }
     }
 
