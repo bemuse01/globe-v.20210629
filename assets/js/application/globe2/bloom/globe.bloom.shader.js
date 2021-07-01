@@ -1,4 +1,4 @@
-import PUBLIC_METHOD from '../../../method/method.js'
+import SHADER_METHOD from '../../../method/method.shader.js'
 
 export default {
     vertex: `
@@ -19,21 +19,19 @@ export default {
 
         const float RADIAN = ${RADIAN};
 
-        ${PUBLIC_METHOD.shaderNormalize()}
-
-        float getTheta(vec2 pos){
-            return atan(pos.y, pos.x);
-        }
+        ${SHADER_METHOD.executeNormalizing()}
+        ${SHADER_METHOD.getTheta()}
 
         void main(){
             float dist = distance(vUv, vec2(0.5)) / 0.5;
             vec2 pos = vec2(vUv - vec2(0.5));
             float theta = getTheta(pos);
 
-            float depth = shaderNormalize(theta * sign(theta), 0.0, 1.05, 0.0, 180.0 * RADIAN);
-            float strength = uStrength - shaderNormalize(theta * sign(theta), 0.0, uStrength, 0.0, 180.0 * RADIAN);
+            // float depth = executeNormalizing(theta * sign(theta), 1.005, 0.97, 0.0, 180.0 * RADIAN);
+            float depth = executeNormalizing(theta < 0.0 ? theta : -theta, 0.97, 1.005, -180.0 * RADIAN, 0.0);
+            float strength = uStrength - executeNormalizing(theta * sign(theta), 0.0, uStrength, 0.0, 180.0 * RADIAN);
 
-            float opacity = dist <= uSize ? 0.0 : (1.0 - dist) * strength;
+            float opacity = dist <= uSize ? 0.0 : (1.0 * depth - dist) * strength;
 
             gl_FragColor = vec4(uColor + uBrightness, opacity);
         }

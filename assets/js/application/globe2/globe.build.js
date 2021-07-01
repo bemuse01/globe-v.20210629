@@ -8,6 +8,7 @@ import POINT from './point/globe.point.build.js'
 import BLOOM from './bloom/globe.bloom.build.js'
 import COVER from './cover/globe.cover.build.js'
 import LIGHT from './light/globe.light.build.js'
+import PARTICLE from './particle/globe.particle.build.js'
 
 
 export default class{
@@ -32,7 +33,8 @@ export default class{
             bloom: BLOOM,
             point: POINT,
             cover: COVER,
-            light: LIGHT
+            light: LIGHT,
+            // particle: PARTICLE
         }
 
         this.initGroup()
