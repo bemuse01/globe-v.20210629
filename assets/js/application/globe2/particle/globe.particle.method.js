@@ -18,9 +18,9 @@ export default {
     fillPositionTexture(texture, radius){
         const {data, width, height} = texture.image
         
-        for(let j = 0; j < width; j++){
-            for(let i = 0; i < height; i++){
-                const index = (i * width + j) * 4
+        for(let j = 0; j < height; j++){
+            for(let i = 0; i < width; i++){
+                const index = (j * width + i) * 4
 
                 // position x
                 data[index] = 0
@@ -40,7 +40,7 @@ export default {
             const {lat, lon} = grid[j]
 
             for(let i = 0; i < width; i++){
-                const index = (i * width + j) * 4
+                const index = (j * width + i) * 4
 
                 // life (opacity)
                 data[index] = Math.random()
