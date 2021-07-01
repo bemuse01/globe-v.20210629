@@ -15,7 +15,7 @@ export default {
 
         return new Float32Array(coord)
     },
-    fillPositionTexture(texture){
+    fillPositionTexture(texture, radius){
         const {data, width, height} = texture.image
         
         for(let j = 0; j < width; j++){
@@ -29,7 +29,7 @@ export default {
                 // position z
                 data[index + 2] = 0
                 // radius
-                data[index + 3] = 0
+                data[index + 3] = radius
             }
         }
     },
@@ -43,12 +43,13 @@ export default {
                 const index = (i * width + j) * 4
 
                 // life (opacity)
-                data[index] = 1
+                data[index] = Math.random()
                 // latitude
-                data[index + 1] = lat
+                data[index + 1] = -lat
                 // longitude
                 data[index + 2] = lon
-                data[index + 3] = 0
+                // velocity
+                data[index + 3] = Math.random() * 0.0325 + 0.0075
             }
         }
     }

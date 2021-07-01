@@ -34,7 +34,7 @@ export default class{
             point: POINT,
             cover: COVER,
             light: LIGHT,
-            // particle: PARTICLE
+            particle: PARTICLE
         }
 
         this.initGroup()

@@ -16,14 +16,13 @@ export default class{
     // init
     init(renderer){
         this.param = {
-            w: 5,
+            w: 6,
             h: GRID.length,
             size: 2.0,
             color: POINT_PARAM.color,
             radius: POINT_PARAM.radius,
             acceleration: 0.1,
-            velocity: 1,
-            lifeVelocity: 0.02
+            velocity: 0.5
         }
 
         this.initGPGPU(renderer)
@@ -61,14 +60,13 @@ export default class{
         this.velocityUniforms = this.velocityVariable.material.uniforms
 
         this.velocityUniforms['uAcceleration'] = {value: this.param.acceleration}
-        this.velocityUniforms['uLifeVelocity'] = {value: this.param.lifeVelocity}
     }
 
     // position texture
     createPositionTexture(){
         const position = this.gpuCompute.createTexture()
 
-        METHOD.fillPositionTexture(position)
+        METHOD.fillPositionTexture(position, this.param.radius)
 
         this.positionVariable = this.gpuCompute.addVariable('position', SHADER.position, position)
     }
@@ -134,7 +132,7 @@ export default class{
 
         this.gpuCompute.compute()
 
-        this.mesh.material.uniforms['uPosition'].value = this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture
-        this.mesh.material.uniforms['uVelocity'].value = this.gpuCompute.getCurrentRenderTarget(this.velocityVariable).texture
+        this.local.children[0].material.uniforms['uPosition'].value = this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture
+        this.local.children[0].material.uniforms['uVelocity'].value = this.gpuCompute.getCurrentRenderTarget(this.velocityVariable).texture
     }
 }

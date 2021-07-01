@@ -12,6 +12,7 @@ export default {
             varying float vOpacity;
 
             void main(){
+                ivec2 coord = ivec2(aCoord);
                 vec3 nPosition = position; 
 
                 vec4 pos = texelFetch(uPosition, coord, 0);
@@ -52,20 +53,25 @@ export default {
 
             // vel.y == latitude
             // vel.z == longitude
-            vec2 vel = texture(velocity, uv);
+            vec4 vel = texture(velocity, uv);
 
-            pos.w += uVelocity;
+            vec3 sphereCoord = vec3(0);
 
-            vec3 sphereCoord = getSphereCoord(vel.y, vel.z, pos.w);
+            if(vel.x <= 0.0){
+                pos.w = uRadius;
+                sphereCoord = getSphereCoord(vel.y, vel.z, uRadius);
+            }else{
+                sphereCoord = getSphereCoord(vel.y, vel.z, pos.w);
+            }
 
             pos.xyz = sphereCoord;
+            pos.w += uVelocity;
 
             gl_FragColor = pos;
         }
     `,
     velocity: `
         uniform float uAcceleration;
-        uniform float uLifeVelocity;
 
         void main(){
             vec2 uv = gl_FragCoord.xy / resolution.xy;
@@ -74,7 +80,7 @@ export default {
             vec4 vel = texture(velocity, uv);
 
             if(vel.x <= 0.0) vel.x = 1.0;
-            else vel.x -= uLifeVelocity;
+            else vel.x -= vel.w;
 
             gl_FragColor = vel;
         }

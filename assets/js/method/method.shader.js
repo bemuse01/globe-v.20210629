@@ -15,9 +15,9 @@ export default {
     },
     getSphereCoord(){
         return `
-            vec3 getSphereCoord(float p, float t, float radius){
-                float phi = p * ${RADIAN};
-                float theta = t * ${RADIAN};
+            vec3 getSphereCoord(float lat, float lon, float radius){
+                float phi = (90.0 - lat) * ${RADIAN};
+                float theta = (180.0 - lon) * ${RADIAN};
                 float x = radius * sin(phi) * cos(theta);
                 float y = radius * cos(phi);
                 float z = radius * sin(phi) * sin(theta);
