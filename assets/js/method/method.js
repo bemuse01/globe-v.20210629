@@ -47,9 +47,9 @@ export default {
             }
         `
     },
-    getSphereCoord(){
+    shaderGetSphereCoord(){
         return `
-            vec3 getSphereCoord(float p, float t, float radius){
+            vec3 shaderGetSphereCoord(float p, float t, float radius){
                 float phi = p * ${RADIAN};
                 float theta = t * ${RADIAN};
                 float x = radius * sin(phi) * cos(theta);
