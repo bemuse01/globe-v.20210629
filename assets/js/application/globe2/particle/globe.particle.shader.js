@@ -49,11 +49,11 @@ export default {
             // pos.y == position y
             // pos.z == position z
             // pos.w == current radius
-            vec4 pos = texture(position, uv);
+            vec4 pos = texture(tPosition, uv);
 
             // vel.y == latitude
             // vel.z == longitude
-            vec4 vel = texture(velocity, uv);
+            vec4 vel = texture(tVelocity, uv);
 
             vec3 sphereCoord = vec3(0);
 
@@ -77,7 +77,7 @@ export default {
             vec2 uv = gl_FragCoord.xy / resolution.xy;
 
             // vel.x == current life
-            vec4 vel = texture(velocity, uv);
+            vec4 vel = texture(tVelocity, uv);
 
             if(vel.x <= 0.0) vel.x = 1.0;
             else vel.x -= vel.w;

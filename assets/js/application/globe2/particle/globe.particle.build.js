@@ -52,7 +52,7 @@ export default class{
 
         METHOD.fillVelocityTexture(velocity, GRID)
 
-        this.velocityVariable = this.gpuCompute.addVariable('velocity', SHADER.velocity, velocity)
+        this.velocityVariable = this.gpuCompute.addVariable('tVelocity', SHADER.velocity, velocity)
     }
     initVelocityTexture(){
         this.gpuCompute.setVariableDependencies(this.velocityVariable, [this.velocityVariable, this.positionVariable])
@@ -68,7 +68,7 @@ export default class{
 
         METHOD.fillPositionTexture(position, this.param.radius)
 
-        this.positionVariable = this.gpuCompute.addVariable('position', SHADER.position, position)
+        this.positionVariable = this.gpuCompute.addVariable('tPosition', SHADER.position, position)
     }
     initPositionTexture(){
         this.gpuCompute.setVariableDependencies(this.positionVariable, [this.positionVariable, this.velocityVariable])
