@@ -60,6 +60,7 @@ export default class{
         this.velocityUniforms = this.velocityVariable.material.uniforms
 
         this.velocityUniforms['uAcceleration'] = {value: this.param.acceleration}
+        this.velocityUniforms['uLatVelocity'] = {value: POINT_PARAM.vel}
     }
 
     // position texture
@@ -120,7 +121,7 @@ export default class{
                 uColor: {value: new THREE.Color(this.param.color)},
                 uSize: {value: this.param.size},
                 uPosition: {value: null},
-                uVelocity: {value: null}
+                uVelocity: {value: null},
             }
         })
     }
@@ -128,7 +129,7 @@ export default class{
 
     // animate
     animate(){
-        this.local.children[0].rotation.y += POINT_PARAM.vel
+        // this.local.children[0].rotation.y += POINT_PARAM.vel
 
         this.gpuCompute.compute()
 

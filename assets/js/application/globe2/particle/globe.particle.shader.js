@@ -72,12 +72,17 @@ export default {
     `,
     velocity: `
         uniform float uAcceleration;
+        uniform float uLatVelocity;
 
         void main(){
             vec2 uv = gl_FragCoord.xy / resolution.xy;
 
             // vel.x == current life
+            // vel.y == latitude
+            // vel.z == longitude
             vec4 vel = texture(tVelocity, uv);
+
+            vel.z = mod((vel.z + uLatVelocity), 360.0);
 
             if(vel.x <= 0.0) vel.x = 1.0;
             else vel.x -= vel.w;

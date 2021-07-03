@@ -32,7 +32,6 @@ export default class{
         
         const geometry = this.createGeometry()
         const material = this.createMaterial()
-        console.log(material)
         const mesh = new THREE.Points(geometry, material)
         // mesh.layers.set(PARAM.layers)
         
@@ -49,11 +48,6 @@ export default class{
         return geometry
     }
     createMaterial(){
-        // return new THREE.PointsMaterial({
-        //     color: PARAM.color,
-        //     size: PARAM.size
-        // })
-        console.log(new THREE.PointsMaterial)
         return new THREE.ShaderMaterial({
             vertexShader: SHADER.draw.vertex,
             fragmentShader: SHADER.draw.fragment,
@@ -69,6 +63,6 @@ export default class{
 
     // animate
     animate(){
-        this.local.children[0].rotation.y += PARAM.vel
+        // this.local.children[0].rotation.y += PARAM.vel
     }
 }

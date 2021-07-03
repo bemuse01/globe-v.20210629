@@ -1,5 +1,3 @@
-import {DataTexture, RGFormat, FloatType} from '../../../lib/three.module.js'
-
 export default {
     createAttributeCoord({w, h}){
         const coord = []
