@@ -53,6 +53,7 @@ export default class{
             vertexShader: SHADER.vertex,
             fragmentShader: SHADER.fragment,
             transparent: true,
+            depthTest: false,
             uniforms: {
                 uColor: {value: new THREE.Color(this.param.color)},
                 uSize: {value: this.param.size},

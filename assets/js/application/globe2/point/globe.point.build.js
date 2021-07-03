@@ -2,6 +2,7 @@ import * as THREE from '../../../lib/three.module.js'
 import GRID from '../../../data/grid.js'
 import METHOD from './globe.point.method.js'
 import PARAM from './globe.point.param.js'
+import SHADER from './globe.point.shader.js'
 
 export default class{
     constructor({group}){
@@ -31,6 +32,7 @@ export default class{
         
         const geometry = this.createGeometry()
         const material = this.createMaterial()
+        console.log(material)
         const mesh = new THREE.Points(geometry, material)
         // mesh.layers.set(PARAM.layers)
         
@@ -47,9 +49,20 @@ export default class{
         return geometry
     }
     createMaterial(){
-        return new THREE.PointsMaterial({
-            color: PARAM.color,
-            size: PARAM.size
+        // return new THREE.PointsMaterial({
+        //     color: PARAM.color,
+        //     size: PARAM.size
+        // })
+        console.log(new THREE.PointsMaterial)
+        return new THREE.ShaderMaterial({
+            vertexShader: SHADER.draw.vertex,
+            fragmentShader: SHADER.draw.fragment,
+            transparent: true,
+            uniforms: {
+                uSize: {value: PARAM.size},
+                uColor: {value: new THREE.Color(PARAM.color)},
+                uPosition: {value: null}
+            }
         })
     }
 

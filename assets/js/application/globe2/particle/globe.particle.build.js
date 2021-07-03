@@ -16,7 +16,7 @@ export default class{
     // init
     init(renderer){
         this.param = {
-            w: 6,
+            w: POINT_PARAM.dup,
             h: GRID.length,
             size: 2.0,
             color: POINT_PARAM.color,

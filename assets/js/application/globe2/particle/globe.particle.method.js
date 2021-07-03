@@ -17,6 +17,8 @@ export default {
     },
     fillPositionTexture(texture, radius){
         const {data, width, height} = texture.image
+
+        console.log(width * height)
         
         for(let j = 0; j < height; j++){
             for(let i = 0; i < width; i++){
