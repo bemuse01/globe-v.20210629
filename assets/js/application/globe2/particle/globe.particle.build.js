@@ -1,39 +1,36 @@
 import * as THREE from '../../../lib/three.module.js'
-import {GPUComputationRenderer} from '../../../lib/GPUComputationRenderer.js'
 import GRID from '../../../data/grid.js'
-import POINT_PARAM from '../point/globe.point.param.js'
+import BUILD_PARAM from '../globe.param.js'
 import METHOD from './globe.particle.method.js'
 import SHADER from './globe.particle.shader.js'
 
 export default class{
-    constructor({group, renderer}){
-        this.init(renderer)
+    constructor({group, gpuCompute}){
+        this.init(gpuCompute)
         this.create()
         this.add(group)
     }
 
 
     // init
-    init(renderer){
+    init(gpuCompute){
+        this.gpuCompute = gpuCompute
+
         this.param = {
-            w: POINT_PARAM.dup,
-            h: GRID.length,
+            w: BUILD_PARAM.w,
+            h: BUILD_PARAM.h,
             size: 2.0,
-            color: POINT_PARAM.color,
-            radius: POINT_PARAM.radius,
+            color: BUILD_PARAM.color,
+            radius: BUILD_PARAM.radius,
             acceleration: 0.1,
             velocity: 0.5
         }
 
-        this.initGPGPU(renderer)
+        this.initGPGPU()
     }
-    initGPGPU(renderer){
-        this.gpuCompute = new GPUComputationRenderer(this.param.w, this.param.h, renderer)
-
+    initGPGPU(){
         this.createTexture()
         this.initTexture()
-
-        this.gpuCompute.init()
     }
 
     // set texutre
@@ -60,7 +57,7 @@ export default class{
         this.velocityUniforms = this.velocityVariable.material.uniforms
 
         this.velocityUniforms['uAcceleration'] = {value: this.param.acceleration}
-        this.velocityUniforms['uLatVelocity'] = {value: POINT_PARAM.vel}
+        this.velocityUniforms['uLatVelocity'] = {value: BUILD_PARAM.vel}
     }
 
     // position texture
@@ -99,7 +96,7 @@ export default class{
         const mesh = new THREE.Points(geometry, material)
 
         this.local.add(mesh)
-        this.local.rotation.z = -POINT_PARAM.rotation * RADIAN
+        this.local.rotation.z = -BUILD_PARAM.rotation * RADIAN
     }
     createGeometry(){
         const geometry = new THREE.BufferGeometry()
@@ -130,8 +127,6 @@ export default class{
     // animate
     animate(){
         // this.local.children[0].rotation.y += POINT_PARAM.vel
-
-        this.gpuCompute.compute()
 
         this.local.children[0].material.uniforms['uPosition'].value = this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture
         this.local.children[0].material.uniforms['uVelocity'].value = this.gpuCompute.getCurrentRenderTarget(this.velocityVariable).texture

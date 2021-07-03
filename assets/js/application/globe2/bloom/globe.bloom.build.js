@@ -1,5 +1,5 @@
 import * as THREE from '../../../lib/three.module.js'
-import POINT_PARAM from '../point/globe.point.param.js'
+import BUILD_PARAM from '../globe.param.js'
 import SHADER from './globe.bloom.shader.js'
 
 export default class{
@@ -14,11 +14,11 @@ export default class{
     init(){
         this.param = {
             // radius: CHILD_PARAM.radius + 5,
-            radius: POINT_PARAM.radius + 34,
+            radius: BUILD_PARAM.radius + 34,
             seg: 128,
             layers: PROCESS,
             // color: 0x1f9eff,
-            color: POINT_PARAM.color,
+            color: BUILD_PARAM.color,
             size: 0.95,
             strength: 20.0,
             brightness: 0.1

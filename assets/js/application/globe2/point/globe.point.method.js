@@ -1,12 +1,12 @@
 import PUBLIC_METHOD from '../../../method/method.js'
 
 export default {
-    createAttribute({grid, radius, range, dup}){
+    createAttribute({grid, radius, range, w}){
         const halfRange = range / 2
         const position = []
         const len = grid.length
 
-        for(let i = 0; i < len * dup; i++){
+        for(let i = 0; i < len * w; i++){
             const {lat, lon} = grid[i % len]
 
             const r1 = Math.random() * halfRange - halfRange

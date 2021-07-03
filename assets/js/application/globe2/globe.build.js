@@ -1,8 +1,6 @@
 import * as THREE from '../../lib/three.module.js'
-import {EffectComposer} from '../../postprocess/EffectComposer.js'
-import {RenderPass} from '../../postprocess/RenderPass.js'
-import {BloomPass} from '../../postprocess/BloomPass.js'
-import {FilmPass} from '../../postprocess/FilmPass.js'
+import {GPUComputationRenderer} from '../../lib/GPUComputationRenderer.js'
+import PARAM from './globe.param.js'
 import PUBLIC_METHOD from '../../method/method.js'
 import POINT from './point/globe.point.build.js'
 import BLOOM from './bloom/globe.bloom.build.js'
@@ -21,14 +19,6 @@ export default class{
 
     // init
     init(app){
-        this.param = {
-            fov: 60,
-            near: 0.1,
-            far: 10000,
-            pos: 1000,
-            bloom: 3.0
-        }
-
         this.modules = {
             bloom: BLOOM,
             point: POINT,
@@ -39,7 +29,7 @@ export default class{
 
         this.initGroup()
         this.initRenderObject()
-        // this.initComposer(app)
+        this.initGPGPU(app)
     }
     initGroup(){
         this.group = {}
@@ -59,8 +49,8 @@ export default class{
 
         this.scene = new THREE.Scene()
 
-        this.camera = new THREE.PerspectiveCamera(this.param.fov, width / height, this.param.near, this.param.far)
-        this.camera.position.z = this.param.pos
+        this.camera = new THREE.PerspectiveCamera(PARAM.fov, width / height, PARAM.near, PARAM.far)
+        this.camera.position.z = PARAM.pos
         
         this.size = {
             el: {
@@ -73,31 +63,9 @@ export default class{
             }
         }
     }
-    initComposer({renderer}){
-        this.bloom = this.param.bloom
-
-        const {right, left, bottom, top} = this.element.getBoundingClientRect()
-        const width = right - left
-        const height = bottom - top
-        
-        this.composer = new EffectComposer(renderer)
-        this.composer.setSize(width, height)
-
-        const renderPass = new RenderPass(this.scene, this.camera)
-
-        const filmPass = new FilmPass(0, 0, 0, false)
-
-        const bloomPass = new BloomPass(this.bloom)
-
-        // this.fxaa = new ShaderPass(THREE.FXAAShader)
-        // this.fxaa.uniforms['resolution'].value.set(1 / (width * RATIO), 1 / (height * RATIO))
-
-        this.composer.addPass(renderPass)
-        this.composer.addPass(bloomPass)
-        this.composer.addPass(filmPass)
-        // this.composer.addPass(this.fxaa)
+    initGPGPU({renderer}){
+        this.gpuCompute = new GPUComputationRenderer(PARAM.w, PARAM.h, renderer)
     }
-
 
     // add
     add(){
@@ -113,13 +81,17 @@ export default class{
             const instance = this.modules[module]
             const group = this.group[module]
 
-            this.comp[module] = new instance({group, size: this.size.obj, renderer})
+            this.comp[module] = new instance({group, size: this.size.obj, gpuCompute: this.gpuCompute})
         }
+
+        this.gpuCompute.init()
     }
 
 
     // animate
     animate({app}){
+        this.gpuCompute.compute()
+
         this.render(app)
         this.animateObject()
     }

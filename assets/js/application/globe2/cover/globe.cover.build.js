@@ -1,5 +1,5 @@
 import * as THREE from '../../../lib/three.module.js'
-import POINT_PARAM from '../point/globe.point.param.js'
+import BUILD_PARAM from '../globe.param.js'
 
 export default class{
     constructor({group}){
@@ -12,8 +12,8 @@ export default class{
     // init
     init(){
         this.param = {
-            radius: POINT_PARAM.radius,
-            color: POINT_PARAM.color,
+            radius: BUILD_PARAM.radius,
+            color: BUILD_PARAM.color,
             seg: 32
         }
     }

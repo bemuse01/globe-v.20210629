@@ -1,7 +1,7 @@
 import * as THREE from '../../../lib/three.module.js'
 import GRID from '../../../data/grid.js'
 import METHOD from './globe.point.method.js'
-import PARAM from './globe.point.param.js'
+import BUILD_PARAM from '../globe.param.js'
 import SHADER from './globe.point.shader.js'
 
 export default class{
@@ -14,6 +14,14 @@ export default class{
 
     // init
     init(){
+        this.param = {
+            color: BUILD_PARAM.color,
+            w: BUILD_PARAM.w,
+            radius: BUILD_PARAM.radius,
+            size: 1.0,
+            range: 5,
+            layers: PROCESS
+        }
     }
 
 
@@ -33,15 +41,15 @@ export default class{
         const geometry = this.createGeometry()
         const material = this.createMaterial()
         const mesh = new THREE.Points(geometry, material)
-        // mesh.layers.set(PARAM.layers)
+        // mesh.layers.set(this.param.layers)
         
         this.local.add(mesh)
-        this.local.rotation.z = -PARAM.rotation * RADIAN
+        this.local.rotation.z = -BUILD_PARAM.rotation * RADIAN
     }
     createGeometry(){
         const geometry = new THREE.BufferGeometry()
 
-        const {position} = METHOD.createAttribute({grid: GRID, ...PARAM})
+        const {position} = METHOD.createAttribute({grid: GRID, ...this.param})
 
         geometry.setAttribute('position', new THREE.BufferAttribute(position, 3))
 
@@ -53,8 +61,8 @@ export default class{
             fragmentShader: SHADER.draw.fragment,
             transparent: true,
             uniforms: {
-                uSize: {value: PARAM.size},
-                uColor: {value: new THREE.Color(PARAM.color)},
+                uSize: {value: this.param.size},
+                uColor: {value: new THREE.Color(this.param.color)},
                 uPosition: {value: null}
             }
         })
@@ -63,6 +71,6 @@ export default class{
 
     // animate
     animate(){
-        // this.local.children[0].rotation.y += PARAM.vel
+        // this.local.children[0].rotation.y += this.param.vel
     }
 }
