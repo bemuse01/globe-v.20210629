@@ -118,7 +118,8 @@ export default class{
             uniforms: {
                 uSize: {value: this.param.size},
                 uColor: {value: new THREE.Color(this.param.color)},
-                uPosition: {value: null}
+                uPosition: {value: null},
+                uMaxDist: {value: this.param.radius}
             }
         })
     }

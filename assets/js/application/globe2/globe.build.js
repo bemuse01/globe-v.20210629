@@ -107,16 +107,6 @@ export default class{
 
         this.camera.lookAt(this.scene.position)
         app.renderer.render(this.scene, this.camera)
-
-        // app.renderer.autoClear = false
-        // app.renderer.clear()
-
-        // this.camera.layers.set(PROCESS)
-        // this.composer.render()
-
-        // app.renderer.clearDepth()
-        // this.camera.layers.set(NORMAL)
-        // app.renderer.render(this.scene, this.camera)
     }
     animateObject(){
         for(let i in this.comp){

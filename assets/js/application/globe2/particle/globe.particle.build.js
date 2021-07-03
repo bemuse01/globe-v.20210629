@@ -119,6 +119,7 @@ export default class{
                 uSize: {value: this.param.size},
                 uPosition: {value: null},
                 uVelocity: {value: null},
+                uMaxDist: {value: this.param.radius}
             }
         })
     }

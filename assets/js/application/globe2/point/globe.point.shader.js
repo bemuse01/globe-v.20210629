@@ -5,20 +5,19 @@ export default {
         vertex: `
             uniform float uSize;
             uniform sampler2D uPosition;
-            // uniform sampler2D uVelocity;
             
             attribute vec2 aCoord;
             
-            // varying float vOpacity;
+            varying vec3 vPosition;
 
             void main(){
                 ivec2 coord = ivec2(aCoord);
                 vec3 nPosition = position; 
 
                 vec4 pos = texelFetch(uPosition, coord, 0);
-                // vec4 vel = texelFetch(uVelocity, coord, 0);
 
                 nPosition.xyz = pos.xyz;
+                vPosition = nPosition;
 
                 gl_PointSize = uSize;
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(nPosition, 1.0);
@@ -26,9 +25,14 @@ export default {
         `,
         fragment: `
             uniform vec3 uColor;
+            uniform float uMaxDist;
+
+            varying vec3 vPosition;
 
             void main(){
-                gl_FragColor = vec4(uColor, 1.0);
+                float dist = distance(vPosition, vec3(vPosition.xy, 0.0)) / uMaxDist;
+
+                gl_FragColor = vec4(uColor, 1.0 - dist * 0.9);
             }
         `
     },

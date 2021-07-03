@@ -10,6 +10,7 @@ export default {
             attribute vec2 aCoord;
             
             varying float vOpacity;
+            varying vec3 vPosition;
 
             void main(){
                 ivec2 coord = ivec2(aCoord);
@@ -20,6 +21,7 @@ export default {
 
                 nPosition.xyz = pos.xyz;
                 vOpacity = vel.x;
+                vPosition = nPosition;
 
                 gl_PointSize = uSize;
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(nPosition, 1.0);
@@ -27,11 +29,15 @@ export default {
         `,
         fragment: `
             uniform vec3 uColor;
+            uniform float uMaxDist;
 
             varying float vOpacity;
+            varying vec3 vPosition;
 
             void main(){
-                gl_FragColor = vec4(uColor, vOpacity);
+                float dist = distance(vPosition, vec3(vPosition.xy, 0.0)) / uMaxDist;
+
+                gl_FragColor = vec4(uColor, vOpacity * (1.0 - dist * 0.9));
             }
         `
     },
