@@ -18,7 +18,7 @@ export default class{
         this.param = {
             w: 6,
             h: GRID.length,
-            size: 4.0,
+            size: 2.0,
             color: POINT_PARAM.color,
             radius: POINT_PARAM.radius,
             acceleration: 0.1,
