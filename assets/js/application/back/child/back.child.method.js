@@ -10,7 +10,7 @@ export default {
                 data[index] = 0.0
 
                 // y === opacity velocity
-                data[index + 1] = 0.006
+                data[index + 1] = 0.01
                 data[index + 2] = 0
                 data[index + 3] = 0
             }

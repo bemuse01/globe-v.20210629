@@ -55,8 +55,8 @@ export default class{
         }
     }
     initGPGPU({renderer}){
-        const width = Math.floor(this.size.el.w / 2)
-        const height = Math.floor(this.size.el.h / 2)
+        const width = Math.floor(this.size.el.w * 0.5)
+        const height = Math.floor(this.size.el.h * 0.5)
 
         this.gpuCompute = new GPUComputationRenderer(width, height, renderer)
     }

@@ -47,7 +47,8 @@ export default {
         }
     `,
     time: `
-        uniform int uRand;
+        uniform int uR1;
+        uniform float uR2;
         uniform float uOldTime;
         uniform float uCurrentTime;
 
@@ -59,7 +60,7 @@ export default {
             // time.z == enable start (1: start, 0: stop)
             vec4 time = texelFetch(tTime, coord, 0);
 
-            if(uRand == coord.x){
+            if(uR1 == coord.x && uR2 > 0.8){
                 time.y = uOldTime;
                 time.z = 1.0;
             }

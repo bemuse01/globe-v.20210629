@@ -18,7 +18,7 @@ export default class{
         this.param = {
             seg: 1,
             color: BUILD_PARAM.color,
-            opacity: {min: 0, max: 0.25}
+            opacity: {min: 0, max: 0.5}
         }
         this.size = size
         this.oldTime = window.performance.now()
@@ -71,7 +71,8 @@ export default class{
 
         this.timeUniforms = this.timeVariable.material.uniforms
 
-        this.timeUniforms['uRand'] = {value: 0.0}
+        this.timeUniforms['uR1'] = {value: 0.0}
+        this.timeUniforms['uR2'] = {value: 0.0}
         this.timeUniforms['uOldTime'] = {value: 0.0}
         this.timeUniforms['uCurrentTime'] = {value: 0.0}
     }
@@ -124,7 +125,8 @@ export default class{
 
         this.delayUniforms['uCurrentTime'].value = currentTime
 
-        this.timeUniforms['uRand'].value = Math.floor(Math.random() * size.el.w)
+        this.timeUniforms['uR1'].value = Math.floor(Math.random() * size.el.w)
+        this.timeUniforms['uR2'].value = Math.random()
         this.timeUniforms['uOldTime'].value = currentTime
         this.timeUniforms['uCurrentTime'].value = currentTime
 
