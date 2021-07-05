@@ -27,6 +27,9 @@ export default class{
             particle: PARTICLE
         }
 
+        this.mouseX = 0
+        this.mouseY = 0
+
         this.initGroup()
         this.initRenderObject()
         this.initGPGPU(app)
@@ -104,6 +107,9 @@ export default class{
 
         app.renderer.setScissor(left, bottom, width, height)
         app.renderer.setViewport(left, bottom, width, height)
+        
+        // this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.005
+        // this.camera.position.y += (-this.mouseY - this.camera.position.y) * 0.005
 
         this.camera.lookAt(this.scene.position)
         app.renderer.render(this.scene, this.camera)
@@ -148,10 +154,7 @@ export default class{
 
     // mouse move
     mouseMove({clientX, clientY, width, height}){
-        const mouseX = clientX - (width / 2)
-        const mouseY = clientY - (height / 2)
-
-        this.camera.position.x += (mouseX - this.camera.position.x) * 0.005
-        this.camera.position.y += (-mouseY - this.camera.position.y) * 0.005
+        this.mouseX = clientX - (width / 2)
+        this.mouseY = clientY - (height / 2)
     }
 }
