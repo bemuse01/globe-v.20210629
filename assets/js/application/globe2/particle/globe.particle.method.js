@@ -47,7 +47,7 @@ export default {
                 // longitude
                 data[index + 2] = lon
                 // velocity
-                data[index + 3] = Math.random() * 0.0325 + 0.0075
+                data[index + 3] = Math.random() * 0.034 + 0.006
             }
         }
     }

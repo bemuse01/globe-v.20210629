@@ -38,3 +38,21 @@ div.globe-object{
     width: 100%;
     height: 100%;
 }
+
+
+/* back */
+div.back{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+div.back-object-container{
+    width: 100%;
+    height: 100%;
+}
+div.back-object{
+    width: 100%;
+    height: 100%;
+}
