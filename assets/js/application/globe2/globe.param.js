@@ -6,7 +6,7 @@ export default {
     far: 10000,
     pos: 1000,
     bloom: 3.0,
-    w: 6,
+    w: 5,
     h: GRID.length,
     vel: 0.125,
     radius: 320,
