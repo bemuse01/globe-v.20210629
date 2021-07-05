@@ -75,7 +75,7 @@ export default class{
         this.gpuCompute = new GPUComputationRenderer(PARAM.w, PARAM.h, renderer)
     }
 
-    
+
     // add
     add(){
         for(let i in this.group) this.build.add(this.group[i])

@@ -100,6 +100,7 @@ export default class{
             vertexShader: SHADER.draw.vertex,
             fragmentShader: SHADER.draw.fragment,
             transparent: true,
+            depthTest: false,
             uniforms: {
                 uColor: {value: new THREE.Color(this.param.color)},
                 uDelay: {value: null}

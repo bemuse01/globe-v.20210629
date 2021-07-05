@@ -46,8 +46,8 @@ new Vue({
         },
         createObject(app){
             // this.createGlobe()
-            this.createGlobe2(app)
             this.createBack(app)
+            this.createGlobe2(app)
         },
         createGlobe(){
             OBJECT.globe = new GLOBE()
