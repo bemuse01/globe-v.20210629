@@ -26,13 +26,14 @@ export default {
         fragment: `
             uniform vec3 uColor;
             uniform float uMaxDist;
+            uniform float uReduce;
 
             varying vec3 vPosition;
 
             void main(){
                 float dist = distance(vPosition, vec3(vPosition.xy, 0.0)) / uMaxDist;
 
-                gl_FragColor = vec4(uColor, 1.0 - dist * 0.9);
+                gl_FragColor = vec4(uColor, 1.0 - dist * uReduce);
             }
         `
     },

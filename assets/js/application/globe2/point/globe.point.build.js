@@ -23,6 +23,7 @@ export default class{
             radius: BUILD_PARAM.radius,
             size: 1.0,
             range: 5,
+            reduce: BUILD_PARAM.reduce,
             layers: PROCESS
         }
 
@@ -119,7 +120,8 @@ export default class{
                 uSize: {value: this.param.size},
                 uColor: {value: new THREE.Color(this.param.color)},
                 uPosition: {value: null},
-                uMaxDist: {value: this.param.radius}
+                uMaxDist: {value: this.param.radius},
+                uReduce: {value: this.param.reduce}
             }
         })
     }

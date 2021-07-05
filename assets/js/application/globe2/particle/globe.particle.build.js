@@ -23,7 +23,8 @@ export default class{
             color: BUILD_PARAM.color,
             radius: BUILD_PARAM.radius,
             acceleration: 0.1,
-            velocity: 0.5
+            velocity: 0.5,
+            reduce: BUILD_PARAM.reduce
         }
 
         this.initGPGPU()
@@ -119,7 +120,8 @@ export default class{
                 uSize: {value: this.param.size},
                 uPosition: {value: null},
                 uVelocity: {value: null},
-                uMaxDist: {value: this.param.radius}
+                uMaxDist: {value: this.param.radius},
+                uReduce: {value: this.param.reduce}
             }
         })
     }

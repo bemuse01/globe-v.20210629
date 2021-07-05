@@ -14,7 +14,7 @@ export default class{
     init(){
         this.param = {
             // radius: CHILD_PARAM.radius + 5,
-            radius: BUILD_PARAM.radius + 34,
+            radius: BUILD_PARAM.radius + 45,
             seg: 128,
             layers: PROCESS,
             // color: 0x1f9eff,
@@ -28,7 +28,7 @@ export default class{
 
     // add
     add(group){
-        group.add(this.mesh)
+        group.add(this.local)
     }
 
 
@@ -37,13 +37,14 @@ export default class{
         this.createMesh()
     }
     createMesh(){
+        this.local = new THREE.Group()
+
         const geometry = this.createGeometry()
         const material = this.createMaterial()
-        this.mesh = new THREE.Mesh(geometry, material)
-        // this.mesh.layers.set(this.param.layers)
-        // this.mesh.position.set(-3, 4)
-        // this.mesh.position.set(6, 6)
-        this.mesh.rotation.z = 45 * RADIAN
+        const mesh = new THREE.Mesh(geometry, material)
+        mesh.rotation.z = 45 * RADIAN
+
+        this.local.add(mesh)
     }
     createGeometry(){
         return new THREE.CircleGeometry(this.param.radius, this.param.seg)
@@ -67,6 +68,6 @@ export default class{
     }
 
     animate({camera}){
-        this.mesh.lookAt(camera.position)
+        this.local.lookAt(camera.position)
     }
 }

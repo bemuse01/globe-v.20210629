@@ -18,7 +18,7 @@ export default class{
         this.param = {
             seg: 1,
             color: BUILD_PARAM.color,
-            opacity: {min: 0, max: 0.5}
+            opacity: {min: 0, max: 0.75}
         }
         this.size = size
         this.oldTime = window.performance.now()
