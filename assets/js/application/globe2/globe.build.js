@@ -29,6 +29,11 @@ export default class{
 
         this.mouseX = 0
         this.mouseY = 0
+        
+        this.cPhi = 0
+        this.cTheta = 0
+        this.vPhi = 0
+        this.vTheta = 0
 
         this.initGroup()
         this.initRenderObject()
@@ -97,6 +102,7 @@ export default class{
 
         this.render(app)
         this.animateObject()
+        this.calcCameraPos()
     }
     render(app){
         const rect = this.element.getBoundingClientRect()
@@ -107,9 +113,6 @@ export default class{
 
         app.renderer.setScissor(left, bottom, width, height)
         app.renderer.setViewport(left, bottom, width, height)
-        
-        // this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.005
-        // this.camera.position.y += (-this.mouseY - this.camera.position.y) * 0.005
 
         this.camera.lookAt(this.scene.position)
         app.renderer.render(this.scene, this.camera)
@@ -119,6 +122,15 @@ export default class{
             if(!this.comp[i] || !this.comp[i].animate) continue
             this.comp[i].animate({camera: this.camera})
         }
+    }
+    calcCameraPos(){
+        this.vPhi += (this.cPhi - this.vPhi) * 0.05
+        this.vTheta += (this.cTheta - this.vTheta) * 0.05
+        const {x, y, z} = PUBLIC_METHOD.getSphereCoord(this.vPhi, this.vTheta, PARAM.pos)
+
+        this.camera.position.x = x
+        this.camera.position.y = y
+        this.camera.position.z = z
     }
 
 
@@ -154,7 +166,10 @@ export default class{
 
     // mouse move
     mouseMove({clientX, clientY, width, height}){
-        this.mouseX = clientX - (width / 2)
-        this.mouseY = clientY - (height / 2)
+        const halfX = width / 2
+        const halfY = height / 2
+
+        this.cTheta = ((clientX - halfX) / -halfX) * 5
+        this.cPhi = ((clientY - halfY) / halfY) * 5
     }
 }
