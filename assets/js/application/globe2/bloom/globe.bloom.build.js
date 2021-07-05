@@ -65,4 +65,8 @@ export default class{
         //     color: this.param.color
         // })
     }
+
+    animate({camera}){
+        this.mesh.lookAt(camera.position)
+    }
 }

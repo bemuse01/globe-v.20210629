@@ -17,6 +17,7 @@ new Vue({
             this.animate()
 
             window.addEventListener('resize', this.onWindowResize, false)
+            document.addEventListener('mousemove', this.onMouseMove, false)
         },
 
 
@@ -57,6 +58,16 @@ new Vue({
         // event
         onWindowResize(){
             this.resizeThree()
+        },
+        onMouseMove(e){
+            const {app} = OBJECT
+            const {width, height} = app
+            const {clientX, clientY} = e
+
+            for(let i in OBJECT){
+                if(!OBJECT[i].mouseMove) continue
+                OBJECT[i].mouseMove({clientX, clientY, width, height})
+            }
         },
 
 

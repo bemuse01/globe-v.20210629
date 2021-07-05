@@ -111,7 +111,7 @@ export default class{
     animateObject(){
         for(let i in this.comp){
             if(!this.comp[i] || !this.comp[i].animate) continue
-            this.comp[i].animate({angle: this.angle})
+            this.comp[i].animate({camera: this.camera})
         }
     }
 
@@ -143,5 +143,15 @@ export default class{
             if(!this.comp[i] || !this.comp[i].resize) continue
             this.comp[i].resize(this.size)
         }
+    }
+
+
+    // mouse move
+    mouseMove({clientX, clientY, width, height}){
+        const mouseX = clientX - (width / 2)
+        const mouseY = clientY - (height / 2)
+
+        this.camera.position.x += (mouseX - this.camera.position.x) * 0.005
+        this.camera.position.y += (-mouseY - this.camera.position.y) * 0.005
     }
 }

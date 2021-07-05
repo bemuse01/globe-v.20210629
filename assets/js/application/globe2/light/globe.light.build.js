@@ -61,4 +61,10 @@ export default class{
 
         return [...dist, ...reverse]
     }
+
+
+    // animate
+    animate({camera}){
+        this.local.lookAt(camera.position)
+    }
 }
