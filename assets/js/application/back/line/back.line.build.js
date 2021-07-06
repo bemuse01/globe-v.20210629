@@ -59,13 +59,17 @@ export default class{
         return geometry
     }
     createMaterial(){
+        const h = this.size.h * 0.4
+
         return new THREE.ShaderMaterial({
             vertexShader: SHADER.vertex,
             fragmentShader: SHADER.fragment,
             transparent: true,
             uniforms: {
                 uColor: {value: new THREE.Color(this.param.color)},
-                uStrength: {value: this.param.strength}
+                uStrength: {value: this.param.strength},
+                uMaxDist: {value: h},
+                uOrigin: {value: new THREE.Vector3(0, h / 2, 0)}
             }
         })
     }
