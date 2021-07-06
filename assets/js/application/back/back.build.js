@@ -3,6 +3,7 @@ import {GPUComputationRenderer} from '../../lib/GPUComputationRenderer.js'
 import PUBLIC_METHOD from '../../method/method.js'
 import PARAM from './back.param.js'
 import CHILD from './child/back.child.build.js'
+import LINE from './child/back.child.build.js'
 
 export default class{
     constructor(app){
@@ -15,7 +16,8 @@ export default class{
     // init
     init(app){
         this.modules = {
-            child: CHILD
+            // child: CHILD,
+            line: LINE
         }
 
         this.initGroup()

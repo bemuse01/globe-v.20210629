@@ -46,7 +46,7 @@ new Vue({
         },
         createObject(app){
             // this.createGlobe()
-            // this.createBack(app)
+            this.createBack(app)
             this.createGlobe2(app)
         },
         createGlobe(){
