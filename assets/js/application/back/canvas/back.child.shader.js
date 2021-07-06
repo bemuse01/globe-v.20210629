@@ -10,7 +10,6 @@ export default {
             }
         `,
         fragment: `
-            uniform vec3 uColor;
             uniform sampler2D uDelay;
             uniform sampler2D uTexture;
 
@@ -51,8 +50,7 @@ export default {
         }
     `,
     time: `
-        uniform int uR1;
-        uniform float uR2;
+        uniform int uRand;
         uniform float uOldTime;
         uniform float uCurrentTime;
 
@@ -64,7 +62,7 @@ export default {
             // time.z == enable start (1: start, 0: stop)
             vec4 time = texelFetch(tTime, coord, 0);
 
-            if(uR1 == coord.x){
+            if(uRand == coord.x){
                 time.y = uOldTime;
                 time.z = 1.0;
             }

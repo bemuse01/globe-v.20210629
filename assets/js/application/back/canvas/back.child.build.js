@@ -13,7 +13,6 @@ export default class{
 
     // init
     init(size, gpuCompute){
-        console.log(size)
         this.gpuCompute = gpuCompute
         this.size = size
         this.oldTime = window.performance.now()
@@ -75,8 +74,7 @@ export default class{
 
         this.timeUniforms = this.timeVariable.material.uniforms
 
-        this.timeUniforms['uR1'] = {value: 0.0}
-        this.timeUniforms['uR2'] = {value: 0.0}
+        this.timeUniforms['uRand'] = {value: 0.0}
         this.timeUniforms['uOldTime'] = {value: 0.0}
         this.timeUniforms['uCurrentTime'] = {value: 0.0}
     }
@@ -101,9 +99,7 @@ export default class{
         return new THREE.PlaneGeometry(this.size.obj.w, this.size.obj.h, this.param.seg, this.param.seg)
     }
     createMaterial(){
-        const canvas = METHOD.createTextureFromCanvas({...this.param, ...this.size.obj})
-        const texture = new THREE.CanvasTexture(canvas)
-        console.log(texture)
+        const texture = this.createTextureFromCanvas()
 
         return new THREE.ShaderMaterial({
             vertexShader: SHADER.draw.vertex,
@@ -111,11 +107,14 @@ export default class{
             transparent: true,
             depthTest: false,
             uniforms: {
-                uColor: {value: new THREE.Color(this.param.color)},
                 uDelay: {value: null},
                 uTexture: {value: texture}
             }
         })
+    }
+    createTextureFromCanvas(){
+        const canvas = METHOD.createTextureFromCanvas({...this.param, ...this.size.obj})
+        return new THREE.CanvasTexture(canvas)
     }
 
 
@@ -125,6 +124,9 @@ export default class{
 
         this.mesh.geometry.dispose()
         this.mesh.geometry = this.createGeometry()
+
+        this.mesh.material.uniforms['uTexture'].value.dispose()
+        this.mesh.material.uniforms['uTexture'].value = this.createTextureFromCanvas()
     }
 
 
@@ -134,8 +136,7 @@ export default class{
 
         this.delayUniforms['uCurrentTime'].value = currentTime
 
-        this.timeUniforms['uR1'].value = Math.floor(Math.random() * size.el.w)
-        this.timeUniforms['uR2'].value = Math.random()
+        this.timeUniforms['uRand'].value = Math.floor(Math.random() * size.el.w)
         this.timeUniforms['uOldTime'].value = currentTime
         this.timeUniforms['uCurrentTime'].value = currentTime
 
