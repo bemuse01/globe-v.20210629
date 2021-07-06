@@ -24,5 +24,12 @@ export default {
                 return vec3(x, y, z);
             }
         `
+    },
+    rand(){
+        return `
+            float rand(vec2 co){
+                return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+            }
+        `
     }
 }

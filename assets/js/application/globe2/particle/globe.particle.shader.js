@@ -78,23 +78,35 @@ export default {
         }
     `,
     velocity: `
-        uniform float uAcceleration;
         uniform float uLatVelocity;
+        uniform float uTime;
+        uniform sampler2D uSphereCoord;
+
+        out vec4 outColor;
+
+        ${SHADER_METHOD.rand()}
 
         void main(){
             vec2 uv = gl_FragCoord.xy / resolution.xy;
 
             // vel.x == current life
-            // vel.y == latitude
-            // vel.z == longitude
+            // vel.y == current latitude
+            // vel.z == current longitude
+            // vel.w == life velocity
             vec4 vel = texture(tVelocity, uv);
+            
+            // usc == origin latitude
+            float usc = float(texture(uSphereCoord, uv));
 
             vel.z = mod((vel.z + uLatVelocity), 360.0);
 
-            if(vel.x <= 0.0) vel.x = 1.0;
+            if(vel.x <= 0.0) {
+                vel.x = 1.0;
+                vel.y = usc + (rand(uv * uTime) * 2.0 - 1.0);
+            }
             else vel.x -= vel.w;
 
-            gl_FragColor = vel;
+            outColor = vel;
         }
     `
 }

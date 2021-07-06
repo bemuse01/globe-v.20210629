@@ -22,7 +22,6 @@ export default class{
             size: 2.0,
             color: BUILD_PARAM.color,
             radius: BUILD_PARAM.radius,
-            acceleration: 0.1,
             velocity: 0.5,
             reduce: BUILD_PARAM.reduce
         }
@@ -51,14 +50,16 @@ export default class{
         METHOD.fillVelocityTexture(velocity, GRID)
 
         this.velocityVariable = this.gpuCompute.addVariable('tVelocity', SHADER.velocity, velocity)
+        this.velocityVariable.material.glslVersion = THREE.GLSL3
     }
     initVelocityTexture(){
         this.gpuCompute.setVariableDependencies(this.velocityVariable, [this.velocityVariable, this.positionVariable])
 
         this.velocityUniforms = this.velocityVariable.material.uniforms
 
-        this.velocityUniforms['uAcceleration'] = {value: this.param.acceleration}
         this.velocityUniforms['uLatVelocity'] = {value: BUILD_PARAM.vel}
+        this.velocityUniforms['uSphereCoord'] = {value: METHOD.createSphereCoordTexture({...this.param, grid: GRID})}
+        this.velocityUniforms['uTime'] = {value: 0}
     }
 
     // position texture
@@ -130,6 +131,8 @@ export default class{
     // animate
     animate(){
         // this.local.children[0].rotation.y += POINT_PARAM.vel
+
+        this.velocityUniforms['uTime'].value = window.performance.now() * 0.001
 
         this.local.children[0].material.uniforms['uPosition'].value = this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture
         this.local.children[0].material.uniforms['uVelocity'].value = this.gpuCompute.getCurrentRenderTarget(this.velocityVariable).texture

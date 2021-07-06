@@ -1,3 +1,5 @@
+import * as THREE from '../../../lib/three.module.js'
+
 export default {
     createAttributeCoord({w, h}){
         const coord = []
@@ -42,13 +44,29 @@ export default {
 
                 // life (opacity)
                 data[index] = Math.random()
-                // latitude
+                // current latitude
                 data[index + 1] = -lat
-                // longitude
+                // current longitude
                 data[index + 2] = lon
-                // velocity
+                // life velocity
                 data[index + 3] = Math.random() * 0.035 + 0.005
             }
         }
+    },
+    createSphereCoordTexture({w, h, grid}){
+        const data = new Float32Array(w * h)
+
+        for(let j = 0; j < h; j++){
+            const {lat, lon} = grid[j]
+
+            for(let i = 0; i < w; i++){
+                const index = (j * w + i)
+
+                // origin latitude
+                data[index] = -lat
+            }
+        }
+
+        return new THREE.DataTexture(data, w, h, THREE.RedFormat, THREE.FloatType)
     }
 }
