@@ -18,7 +18,8 @@ export default class{
         this.param = {
             seg: 1,
             color: BUILD_PARAM.color,
-            opacity: {min: 0, max: 0.75}
+            opacity: {min: 0, max: 0.75},
+            text: `qwerttyuiop[]{}asdfghjkl;':"zxcvbnm,./<>1234567890-=\\~!@#$%^&*()_+|QWERTYUIOPASDFGHJKLZXCVBNM`
         }
         this.size = size
         this.oldTime = window.performance.now()
