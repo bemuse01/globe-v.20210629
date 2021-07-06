@@ -14,7 +14,7 @@ export default class{
     init(size){
         this.size = size
         this.h = this.size.h / 2
-        this.len = this.size.h * 0.75 / 2
+        this.len = Math.min(this.size.w, this.size.h) * 0.75 / 2
 
         this.param = {
             size: 0.4,
@@ -22,8 +22,8 @@ export default class{
             count: 30,
             color: BUILD_PARAM.color,
             velocity: -20,
-            chance: 0.975,
-            opacity: 0.15
+            chance: 0.985,
+            opacity: 0.175
         }
 
 
@@ -39,7 +39,6 @@ export default class{
     // create
     create(){
         this.local = new THREE.Group()
-        const w = this.size.w
         
         for(let i = 0; i < this.param.count; i++){
             const mesh = this.createMesh()
@@ -50,7 +49,6 @@ export default class{
 
             this.local.add(mesh)
         }
-
     }
     createMesh(){
         const geometry = this.createGeometry()
@@ -86,6 +84,18 @@ export default class{
                 uOpacity: {value: this.param.opacity}
             }
         })
+    }
+
+
+    // resize
+    resize({obj, el}){
+        this.size = obj
+
+        for(let i = 0; i < this.local.children.length; i++){
+            const mesh = this.local.children[i]
+            mesh.geometry.dispose()
+            mesh.geometry = this.createGeometry()
+        }
     }
 
 
