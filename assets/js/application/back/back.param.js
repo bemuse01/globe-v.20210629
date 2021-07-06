@@ -3,5 +3,6 @@ export default {
     near: 0.1,
     far: 10000,
     pos: 1000,
-    color: 0x39faff
+    color: 0x39faff,
+    div: 8
 }

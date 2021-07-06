@@ -4,6 +4,7 @@ import PUBLIC_METHOD from '../../method/method.js'
 import PARAM from './back.param.js'
 // import CHILD from './child/back.child.build.js'
 import LINE from './line/back.line.build.js'
+import CANVAS from './canvas/back.child.build.js'
 
 export default class{
     constructor(app){
@@ -17,12 +18,13 @@ export default class{
     init(app){
         this.modules = {
             // child: CHILD,
-            line: LINE
+            // line: LINE,
+            canvas: CANVAS
         }
 
         this.initGroup()
         this.initRenderObject()
-        // this.initGPGPU(app)
+        this.initGPGPU(app)
     }
     initGroup(){
         this.group = {}
@@ -57,8 +59,8 @@ export default class{
         }
     }
     initGPGPU({renderer}){
-        const width = Math.floor(this.size.el.w * 0.5)
-        const height = Math.floor(this.size.el.h * 0.5)
+        const width = Math.ceil(this.size.el.w / PARAM.div)
+        const height = Math.ceil(this.size.el.h / PARAM.div)
 
         this.gpuCompute = new GPUComputationRenderer(width, height, renderer)
     }
@@ -78,16 +80,16 @@ export default class{
             const instance = this.modules[module]
             const group = this.group[module]
 
-            this.comp[module] = new instance({group, size: this.size.obj, gpuCompute: this.gpuCompute})
+            this.comp[module] = new instance({group, size: this.size, gpuCompute: this.gpuCompute})
         }
 
-        // this.gpuCompute.init()
+        this.gpuCompute.init()
     }
 
 
     // animate
     animate({app}){
-        // this.gpuCompute.compute()
+        this.gpuCompute.compute()
 
         this.render(app)
         this.animateObject()
