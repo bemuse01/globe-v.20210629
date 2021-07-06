@@ -13,12 +13,20 @@ export default class{
     // init
     init(size){
         this.size = size
+        this.h = this.size.h / 2
+        this.len = this.size.h * 0.75 / 2
 
         this.param = {
             size: 0.4,
             strength: 1.0,
-            color: BUILD_PARAM.color
+            count: 30,
+            color: BUILD_PARAM.color,
+            velocity: -20,
+            chance: 0.975,
+            opacity: 0.15
         }
+
+
     }
 
 
@@ -31,10 +39,18 @@ export default class{
     // create
     create(){
         this.local = new THREE.Group()
+        const w = this.size.w
         
-        const mesh = this.createMesh()
+        for(let i = 0; i < this.param.count; i++){
+            const mesh = this.createMesh()
 
-        this.local.add(mesh)
+            mesh.position.x = Math.random() * this.size.w - this.size.w / 2
+            mesh.position.y = this.h + this.len
+            mesh.play = false
+
+            this.local.add(mesh)
+        }
+
     }
     createMesh(){
         const geometry = this.createGeometry()
@@ -45,12 +61,11 @@ export default class{
         const geometry = new THREE.BufferGeometry()
 
         const position = new Float32Array(2 * 3)
-        const h = this.size.h * 0.4
 
         for(let i = 0; i < 2; i++){
             const index = i * 3
             position[index] = 0
-            position[index + 1] = i === 0 ? -h / 2 : h / 2 
+            position[index + 1] = i === 0 ? -this.len : this.len 
             position[index + 2] = 0
         }
 
@@ -59,8 +74,6 @@ export default class{
         return geometry
     }
     createMaterial(){
-        const h = this.size.h * 0.4
-
         return new THREE.ShaderMaterial({
             vertexShader: SHADER.vertex,
             fragmentShader: SHADER.fragment,
@@ -68,8 +81,23 @@ export default class{
             uniforms: {
                 uColor: {value: new THREE.Color(this.param.color)},
                 uStrength: {value: this.param.strength},
-                uMaxDist: {value: h},
-                uOrigin: {value: new THREE.Vector3(0, h / 2, 0)}
+                uMaxDist: {value: this.len},
+                uOrigin: {value: new THREE.Vector3(0, this.len, 0)},
+                uOpacity: {value: this.param.opacity}
+            }
+        })
+    }
+
+
+    // animate
+    animate(){
+        this.local.children.forEach(mesh => {
+            if(Math.random() > this.param.chance && mesh.play === false) mesh.play = true
+            if(mesh.play) mesh.position.y += this.param.velocity
+            if(mesh.position.y <= -(this.h + this.len)){
+                mesh.position.x = Math.random() * this.size.w - this.size.w / 2
+                mesh.position.y = this.h + this.len
+                mesh.play = false
             }
         })
     }

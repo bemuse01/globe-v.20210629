@@ -2,7 +2,7 @@ import * as THREE from '../../lib/three.module.js'
 import {GPUComputationRenderer} from '../../lib/GPUComputationRenderer.js'
 import PUBLIC_METHOD from '../../method/method.js'
 import PARAM from './back.param.js'
-import CHILD from './child/back.child.build.js'
+// import CHILD from './child/back.child.build.js'
 import LINE from './line/back.line.build.js'
 
 export default class{
@@ -22,7 +22,7 @@ export default class{
 
         this.initGroup()
         this.initRenderObject()
-        this.initGPGPU(app)
+        // this.initGPGPU(app)
     }
     initGroup(){
         this.group = {}
@@ -81,13 +81,13 @@ export default class{
             this.comp[module] = new instance({group, size: this.size.obj, gpuCompute: this.gpuCompute})
         }
 
-        this.gpuCompute.init()
+        // this.gpuCompute.init()
     }
 
 
     // animate
     animate({app}){
-        this.gpuCompute.compute()
+        // this.gpuCompute.compute()
 
         this.render(app)
         this.animateObject()

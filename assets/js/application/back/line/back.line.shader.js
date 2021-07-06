@@ -14,6 +14,7 @@ export default {
         uniform vec3 uColor;
         uniform vec3 uOrigin;
         uniform float uMaxDist;
+        uniform float uOpacity;
         
         varying vec3 vPosition;
 
@@ -22,7 +23,7 @@ export default {
         void main(){
             float dist = executeNormalizing(distance(vPosition, uOrigin), 0.0, 1.0, 0.0, uMaxDist);
 
-            gl_FragColor = vec4(uColor, dist);
+            gl_FragColor = vec4(uColor, dist * uOpacity);
         }
     `
 }
