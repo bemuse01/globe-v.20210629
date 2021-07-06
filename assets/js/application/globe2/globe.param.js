@@ -11,6 +11,6 @@ export default {
     vel: 0.125,
     radius: 360,
     rotation: 30,
-    reduce: 0.85,
+    reduce: 0.75,
     color: 0x39faff
 }

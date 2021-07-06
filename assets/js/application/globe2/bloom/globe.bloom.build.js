@@ -17,7 +17,7 @@ export default class{
             radius: BUILD_PARAM.radius + 45,
             seg: 128,
             layers: PROCESS,
-            // color: 0x1f9eff,
+            // color: 0x95fcff,
             color: BUILD_PARAM.color,
             size: 0.95,
             strength: 20.0,

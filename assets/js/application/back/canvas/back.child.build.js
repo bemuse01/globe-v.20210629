@@ -20,7 +20,7 @@ export default class{
 
         this.param = {
             seg: 1,
-            color: 0x95fcff,
+            color: '57, 250, 255',
             opacity: {min: 0.0, max: 1.0},
             text: `qwerttyuiop[]{}asdfghjkl;':"zxcvbnm,./<>1234567890-=\\~!@#$%^&*()_+|QWERTYUIOPASDFGHJKLZXCVBNM`,
             fontSize: 8,
