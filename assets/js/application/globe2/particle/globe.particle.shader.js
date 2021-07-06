@@ -82,8 +82,6 @@ export default {
         uniform float uTime;
         uniform sampler2D uSphereCoord;
 
-        out vec4 outColor;
-
         ${SHADER_METHOD.rand()}
 
         void main(){
@@ -106,7 +104,7 @@ export default {
             }
             else vel.x -= vel.w;
 
-            outColor = vel;
+            gl_FragColor = vel;
         }
     `
 }

@@ -50,7 +50,6 @@ export default class{
         METHOD.fillVelocityTexture(velocity, GRID)
 
         this.velocityVariable = this.gpuCompute.addVariable('tVelocity', SHADER.velocity, velocity)
-        this.velocityVariable.material.glslVersion = THREE.GLSL3
     }
     initVelocityTexture(){
         this.gpuCompute.setVariableDependencies(this.velocityVariable, [this.velocityVariable, this.positionVariable])
