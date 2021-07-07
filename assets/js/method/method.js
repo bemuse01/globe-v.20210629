@@ -39,5 +39,13 @@ export default {
         const y = radius * Math.cos(phi)
         const z = radius * Math.sin(phi) * Math.sin(theta)
         return {x, y, z}
+    },
+    getSphereCoord2(lat, lon, radius) {
+        const phi = lat * RADIAN
+        const theta = lon * RADIAN
+        const x = radius * Math.sin(phi) * Math.cos(theta)
+        const y = radius * Math.cos(phi)
+        const z = radius * Math.sin(phi) * Math.sin(theta)
+        return {x, y, z}
     }
 }

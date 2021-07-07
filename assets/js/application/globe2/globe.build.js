@@ -7,6 +7,7 @@ import BLOOM from './bloom/globe.bloom.build.js'
 import COVER from './cover/globe.cover.build.js'
 import LIGHT from './light/globe.light.build.js'
 import PARTICLE from './particle/globe.particle.build.js'
+import PARTICLE2 from './particle2/globe.particle2.build.js'
 
 
 export default class{
@@ -24,7 +25,8 @@ export default class{
             point: POINT,
             cover: COVER,
             light: LIGHT,
-            particle: PARTICLE
+            particle: PARTICLE,
+            particle2: PARTICLE2
         }
 
         this.mouseX = 0

@@ -3,8 +3,8 @@ import {GPUComputationRenderer} from '../../lib/GPUComputationRenderer.js'
 import PUBLIC_METHOD from '../../method/method.js'
 import PARAM from './back.param.js'
 // import CHILD from './child/back.child.build.js'
-import LINE from './line/back.line.build.js'
-import CANVAS from './canvas/back.child.build.js'
+// import LINE from './line/back.line.build.js'
+import CANVAS from './canvas/back.canvas.build.js'
 
 export default class{
     constructor(app){

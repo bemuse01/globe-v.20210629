@@ -1,7 +1,7 @@
 import * as THREE from '../../../lib/three.module.js'
-import METHOD from './back.child.method.js'
+import METHOD from './back.canvas.method.js'
 import BUILD_PARAM from '../back.param.js'
-import SHADER from './back.child.shader.js'
+import SHADER from './back.canvas.shader.js'
 
 export default class{
     constructor({group, size, gpuCompute}){
