@@ -14,12 +14,16 @@ export default class{
     // init
     init(){
         this.param = {
-            radius: BUILD_PARAM.radius + 120,
+            radius: BUILD_PARAM.radius,
             dist: 100,
             color: 0xffffff,
             count: 300,
             vel: 0.5,
-            size: 2.5
+            size: 2.5,
+            rd: {
+                min: 0.925,
+                max: 0.4
+            }
         }
 
         this.radius = METHOD.createRadius(this.param)

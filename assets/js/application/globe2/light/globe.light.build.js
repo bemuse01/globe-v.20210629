@@ -17,7 +17,7 @@ export default class{
             intensity: 3.5,
             dist: BUILD_PARAM.radius + 300,
             radius: BUILD_PARAM.radius + 420,
-            step: 33
+            step: 40
         }
     }
 
@@ -65,6 +65,6 @@ export default class{
 
     // animate
     animate({camera}){
-        this.local.lookAt(camera.position)
+        // this.local.lookAt(camera.position)
     }
 }

@@ -1,6 +1,8 @@
 export default {
-    createRadius({count, radius, dist}){
-        return Array.from({length: count}, () => Math.random() * radius / 2 + radius / 2)
+    createRadius({count, radius, rd}){
+        const min = radius * rd.min
+        const max = radius * rd.max
+        return Array.from({length: count}, () => Math.random() * max + min)
     },
     createDegree({count, vel}){
         return Array.from({length: count}, () => ({
