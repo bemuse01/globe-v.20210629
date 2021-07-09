@@ -35,7 +35,7 @@ export default {
             }
         }
     },
-    createTextureFromCanvas({w, h, fontSize, text, gap, color}){
+    createTextureFromCanvas({w, h, fontSize, text, gap, color, font}){
         const ctx = document.createElement('canvas').getContext('2d')
         ctx.canvas.width = w
         ctx.canvas.height = h
@@ -44,7 +44,7 @@ export default {
         const height = Math.ceil(h / fontSize)
 
         ctx.fillStyle = `rgba(${color}, 1.0)`
-        ctx.font = fontSize + 'px arial'
+        ctx.font = `${fontSize}px ${font}`
 
         for(let i = 0; i < height; i++){
             for(let j = 0; j < width; j++){

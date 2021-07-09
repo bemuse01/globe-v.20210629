@@ -21,6 +21,7 @@ export default class{
             seg: 1,
             color: '57, 250, 255',
             opacity: {min: 0.0, max: 1.0},
+            font: 'arial',
             text: `qwerttyuiop[]{}asdfghjkl;':"zxcvbnm,./<>1234567890-=\\~!@#$%^&*()_+|QWERTYUIOPASDFGHJKLZXCVBNM`,
             fontSize: 6,
             gap: 6
