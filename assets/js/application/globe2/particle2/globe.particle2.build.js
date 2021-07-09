@@ -15,14 +15,13 @@ export default class{
     init(){
         this.param = {
             radius: BUILD_PARAM.radius,
-            dist: 100,
             color: 0xffffff,
-            count: 300,
+            count: 200,
             vel: 0.5,
-            size: 2.5,
+            size: 2.0,
             rd: {
-                min: 0.925,
-                max: 0.4
+                min: 0.95,
+                max: 0.25
             }
         }
 
