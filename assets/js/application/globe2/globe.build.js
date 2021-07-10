@@ -104,10 +104,10 @@ export default class{
         this.gpuCompute.compute()
 
         this.render(app)
-        this.animateObject()
-
+        
         // switch this method
-        // this.calcCameraPos()
+        // this.calcDegree()
+        this.animateObject()
     }
     render(app){
         const rect = this.element.getBoundingClientRect()
@@ -125,17 +125,17 @@ export default class{
     animateObject(){
         for(let i in this.comp){
             if(!this.comp[i] || !this.comp[i].animate) continue
-            this.comp[i].animate({camera: this.camera})
+            this.comp[i].animate({camera: this.camera, phi: this.vPhi, theta: this.vTheta})
         }
     }
-    calcCameraPos(){
+    calcDegree(){
         this.vPhi += (this.cPhi - this.vPhi) * 0.05
         this.vTheta += (this.cTheta - this.vTheta) * 0.05
-        const {x, y, z} = PUBLIC_METHOD.getSphereCoord(this.vPhi, this.vTheta, PARAM.pos)
+        // const {x, y, z} = PUBLIC_METHOD.getSphereCoord(this.vPhi, this.vTheta, PARAM.pos)
 
-        this.camera.position.x = x
-        this.camera.position.y = y
-        this.camera.position.z = z
+        // this.camera.position.x = x
+        // this.camera.position.y = y
+        // this.camera.position.z = z
     }
 
 
@@ -174,7 +174,7 @@ export default class{
         const halfX = width / 2
         const halfY = height / 2
 
-        this.cTheta = ((clientX - halfX) / -halfX) * 5
-        this.cPhi = ((clientY - halfY) / halfY) * 5
+        this.cTheta = ((clientX - halfX) / -halfX) * 10
+        this.cPhi = ((clientY - halfY) / halfY) * 10
     }
 }

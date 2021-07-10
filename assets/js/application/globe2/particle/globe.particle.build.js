@@ -128,8 +128,9 @@ export default class{
 
 
     // animate
-    animate(){
-        // this.local.children[0].rotation.y += POINT_PARAM.vel
+    animate({phi, theta}){
+        this.local.children[0].rotation.x = -phi * RADIAN
+        this.local.children[0].rotation.y = theta * RADIAN
 
         this.velocityUniforms['uTime'].value = window.performance.now() * 0.001
 

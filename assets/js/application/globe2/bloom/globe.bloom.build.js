@@ -67,7 +67,6 @@ export default class{
         // })
     }
 
-    animate({camera}){
-        this.local.lookAt(camera.position)
+    animate(){
     }
 }

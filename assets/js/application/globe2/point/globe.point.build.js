@@ -128,8 +128,9 @@ export default class{
 
 
     // animate
-    animate(){
-        // this.local.children[0].rotation.y += this.param.vel
+    animate({phi, theta}){
+        this.local.children[0].rotation.x = -phi * RADIAN
+        this.local.children[0].rotation.y = theta * RADIAN
 
         this.local.children[0].material.uniforms['uPosition'].value = this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture
     }
