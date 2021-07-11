@@ -18,7 +18,7 @@ export default class{
             color: 0xffffff,
             count: 200,
             vel: 0.5,
-            size: 2.0,
+            size: 2.5,
             rd: {
                 min: 0.95,
                 max: 0.25
