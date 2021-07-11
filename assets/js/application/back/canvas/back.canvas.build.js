@@ -95,6 +95,9 @@ export default class{
         const geometry = this.createGeometry()
         const material = this.createMaterial()
         this.mesh = new THREE.Mesh(geometry, material)
+        // this.mesh.rotation.x = -30 * RADIAN
+        // this.mesh.position.y = 200
+        // this.mesh.rotation.y = -30 * RADIAN
     }
     createGeometry(){
         return new THREE.PlaneGeometry(this.size.obj.w, this.size.obj.h, this.param.seg, this.param.seg)
