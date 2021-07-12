@@ -29,6 +29,8 @@ export default {
         uniform float uCurrentTime;
         uniform float uOpacityMin;
         uniform float uOpacityMax;
+        uniform float uMaxWidth;
+        uniform float uStrength;
 
         void main(){
             ivec2 coord = ivec2(gl_FragCoord.xy);
@@ -42,7 +44,9 @@ export default {
             // time.z == enable start (1: start, 0: stop)
             vec4 time = texelFetch(tTime, coord, 0);
             
-            if(time.x < uCurrentTime - time.y && time.z == 1.0) delay.x = uOpacityMax;
+            if(time.x < uCurrentTime - time.y && time.z == 1.0){
+                delay.x = uOpacityMax * float(coord.x) / uMaxWidth * uStrength;
+            }
 
             delay.x = clamp(delay.x - delay.y, uOpacityMin, uOpacityMax);
 

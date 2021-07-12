@@ -21,11 +21,12 @@ export default class{
             seg: 1,
             color: '57, 250, 255',
             opacity: {min: 0.0, max: 1.0},
-            font: 'arial',
-            text: `qwerttyuiop[]{}asdfghjkl;':"zxcvbnm,./<>1234567890-=\\~!@#$%^&*()_+|QWERTYUIOPASDFGHJKLZXCVBNM`,
-            fontSize: 6,
-            gap: 6,
-            rotation: 30
+            font: BUILD_PARAM.font,
+            text: BUILD_PARAM.text,
+            fontSize: BUILD_PARAM.fontSize,
+            gap: BUILD_PARAM.gap,
+            rotation: BUILD_PARAM.rotation,
+            strength: BUILD_PARAM.strength
         }
 
         this.initGPGPU()
@@ -61,6 +62,10 @@ export default class{
         this.delayUniforms['uCurrentTime'] = {value: 0.0}
         this.delayUniforms['uOpacityMin'] = {value: this.param.opacity.min}
         this.delayUniforms['uOpacityMax'] = {value: this.param.opacity.max}
+        this.delayUniforms['uMaxWidth'] = {value: this.size.el.w / BUILD_PARAM.gpuComputeWidth / BUILD_PARAM.div}
+        this.delayUniforms['uStrength'] = {value: this.param.strength}
+
+        console.log(this.gpuCompute)
     }
 
     // time texture
@@ -110,7 +115,9 @@ export default class{
         // this.mesh.rotation.y = -30 * RADIAN
     }
     createGeometry(){
-        return new THREE.PlaneGeometry(this.size.obj.w / 2, this.size.obj.h, this.param.seg, this.param.seg)
+        const width = this.size.obj.w / BUILD_PARAM.gpuComputeWidth
+        const height = this.size.obj.h / BUILD_PARAM.gpuComputeheight
+        return new THREE.PlaneGeometry(width, height, this.param.seg, this.param.seg)
     }
     createMaterial(){
         const texture = this.createTextureFromCanvas()
