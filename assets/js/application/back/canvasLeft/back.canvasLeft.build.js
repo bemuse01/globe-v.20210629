@@ -24,7 +24,8 @@ export default class{
             font: 'arial',
             text: `qwerttyuiop[]{}asdfghjkl;':"zxcvbnm,./<>1234567890-=\\~!@#$%^&*()_+|QWERTYUIOPASDFGHJKLZXCVBNM`,
             fontSize: 6,
-            gap: 6
+            gap: 6,
+            rotation: 30
         }
 
         this.initGPGPU()
@@ -100,7 +101,7 @@ export default class{
         const halfPlaneWidth = this.size.obj.w / 4
         mesh.position.x = -this.size.obj.w / 2 + halfPlaneWidth
         
-        this.local.rotation.y = 40 * RADIAN
+        this.local.rotation.y = this.param.rotation * RADIAN
 
         this.local.add(mesh)
 
