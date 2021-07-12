@@ -4,7 +4,8 @@ import PUBLIC_METHOD from '../../method/method.js'
 import PARAM from './back.param.js'
 // import CHILD from './child/back.child.build.js'
 // import LINE from './line/back.line.build.js'
-import CANVAS from './canvas/back.canvas.build.js'
+import CANVAS_LEFT from './canvasLeft/back.canvasLeft.build.js'
+import CANVAS_RIGHT from './canvasRight/back.canvasRight.build.js'
 
 export default class{
     constructor(app){
@@ -19,7 +20,8 @@ export default class{
         this.modules = {
             // child: CHILD,
             // line: LINE,
-            canvas: CANVAS
+            canvasLeft: CANVAS_LEFT,
+            canvasRight: CANVAS_RIGHT
         }
 
         this.initGroup()
@@ -59,7 +61,8 @@ export default class{
         }
     }
     initGPGPU({renderer}){
-        const width = Math.ceil(this.size.el.w / PARAM.div)
+        const halfWidth = this.size.el.w / 2
+        const width = Math.ceil(halfWidth / PARAM.div)
         const height = Math.ceil(this.size.el.h / PARAM.div)
 
         this.gpuCompute = new GPUComputationRenderer(width, height, renderer)

@@ -1,7 +1,7 @@
 import * as THREE from '../../../lib/three.module.js'
-import METHOD from './back.canvas.method.js'
+import METHOD from './back.canvasLeft.method.js'
 import BUILD_PARAM from '../back.param.js'
-import SHADER from './back.canvas.shader.js'
+import SHADER from './back.canvasLeft.shader.js'
 
 export default class{
     constructor({group, size, gpuCompute}){
@@ -83,7 +83,7 @@ export default class{
 
     // add
     add(group){
-        group.add(this.mesh)
+        group.add(this.local)
     }
 
 
@@ -92,15 +92,24 @@ export default class{
         this.createMesh()
     }
     createMesh(){
+        this.local = new THREE.Group
         const geometry = this.createGeometry()
         const material = this.createMaterial()
-        this.mesh = new THREE.Mesh(geometry, material)
+        const mesh = new THREE.Mesh(geometry, material)
+
+        const halfPlaneWidth = this.size.obj.w / 4
+        mesh.position.x = -this.size.obj.w / 2 + halfPlaneWidth
+        
+        this.local.rotation.y = 40 * RADIAN
+
+        this.local.add(mesh)
+
         // this.mesh.rotation.x = -30 * RADIAN
         // this.mesh.position.y = 200
         // this.mesh.rotation.y = -30 * RADIAN
     }
     createGeometry(){
-        return new THREE.PlaneGeometry(this.size.obj.w, this.size.obj.h, this.param.seg, this.param.seg)
+        return new THREE.PlaneGeometry(this.size.obj.w / 2, this.size.obj.h, this.param.seg, this.param.seg)
     }
     createMaterial(){
         const texture = this.createTextureFromCanvas()
@@ -144,6 +153,6 @@ export default class{
         this.timeUniforms['uOldTime'].value = currentTime
         this.timeUniforms['uCurrentTime'].value = currentTime
 
-        this.mesh.material.uniforms['uDelay'].value = this.gpuCompute.getCurrentRenderTarget(this.delayVariable).texture
+        this.local.children[0].material.uniforms['uDelay'].value = this.gpuCompute.getCurrentRenderTarget(this.delayVariable).texture
     }
 }

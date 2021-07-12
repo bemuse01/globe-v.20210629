@@ -24,7 +24,8 @@ export default {
                 const index = (i * width + j) * 4
 
                 // x === each texel start time
-                data[index] = height * 12 - i * 12
+                data[index] = width * 12 - j * 12
+                // data[index] = j * 12
 
                 // y === update old time to start again
                 data[index + 1] = 0
