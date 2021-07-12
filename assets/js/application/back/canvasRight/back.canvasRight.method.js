@@ -16,7 +16,7 @@ export default {
             }
         }
     },
-    fillTimeTexture(texture, size){
+    fillTimeTexture(texture, {timeVel}){
         const {data, width, height} = texture.image
         
         for(let j = 0; j < width; j++){
@@ -24,8 +24,7 @@ export default {
                 const index = (i * width + j) * 4
 
                 // x === each texel start time
-                data[index] = width * 12 - j * 12
-                // data[index] = j * 12
+                data[index] = width * timeVel - j * timeVel
 
                 // y === update old time to start again
                 data[index + 1] = 0

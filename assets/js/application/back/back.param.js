@@ -15,5 +15,6 @@ export default {
     rotation: 35,
     strength: 3.0,
     color: '57, 250, 255',
-    opacityVel: 0.025 
+    opacityVel: 0.025,
+    timeVel: 15
 }

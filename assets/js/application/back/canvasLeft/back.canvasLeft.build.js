@@ -27,7 +27,8 @@ export default class{
             gap: BUILD_PARAM.gap,
             rotation: BUILD_PARAM.rotation,
             strength: BUILD_PARAM.strength,
-            opacityVel: BUILD_PARAM.opacityVel
+            opacityVel: BUILD_PARAM.opacityVel,
+            timeVel: BUILD_PARAM.timeVel
         }
 
         this.initGPGPU()
@@ -65,15 +66,13 @@ export default class{
         this.delayUniforms['uOpacityMax'] = {value: this.param.opacity.max}
         this.delayUniforms['uMaxWidth'] = {value: this.size.el.w / BUILD_PARAM.gpuComputeWidth / BUILD_PARAM.div}
         this.delayUniforms['uStrength'] = {value: this.param.strength}
-
-        console.log(this.gpuCompute)
     }
 
     // time texture
     createTimeTexture(){
         const time = this.gpuCompute.createTexture()
 
-        METHOD.fillTimeTexture(time)
+        METHOD.fillTimeTexture(time, this.param)
 
         this.timeVariable = this.gpuCompute.addVariable('tTime', SHADER.time, time)
     }
