@@ -12,7 +12,7 @@ export default {
     font: 'arial',
     // text: `qwerttyuiop[]{}asdfghjkl;':"zxcvbnm,./<>1234567890-=\\~!@#$%^&*()_+|QWERTYUIOPASDFGHJKLZXCVBNM`,
     text: `qwerttyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM`,
-    rotation: 30,
+    rotation: 35,
     strength: 3.0,
     color: '57, 250, 255'
 }
