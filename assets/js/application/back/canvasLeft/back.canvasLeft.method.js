@@ -1,5 +1,5 @@
 export default {
-    fillDelayTexture(texture){
+    fillDelayTexture(texture, {opacityVel}){
         const {data, width, height} = texture.image
 
         for(let j = 0; j < width; j++){
@@ -10,7 +10,7 @@ export default {
                 data[index] = 0.0
 
                 // y === opacity velocity
-                data[index + 1] = 0.015
+                data[index + 1] = opacityVel
                 data[index + 2] = 0
                 data[index + 3] = 0
             }

@@ -26,7 +26,8 @@ export default class{
             fontSize: BUILD_PARAM.fontSize,
             gap: BUILD_PARAM.gap,
             rotation: BUILD_PARAM.rotation,
-            strength: BUILD_PARAM.strength
+            strength: BUILD_PARAM.strength,
+            opacityVel: BUILD_PARAM.opacityVel
         }
 
         this.initGPGPU()
@@ -50,7 +51,7 @@ export default class{
     createDelayTexture(){
         const delay = this.gpuCompute.createTexture()
         
-        METHOD.fillDelayTexture(delay)
+        METHOD.fillDelayTexture(delay, this.param)
 
         this.delayVariable = this.gpuCompute.addVariable('tDelay', SHADER.delay, delay)
     }
