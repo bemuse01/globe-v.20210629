@@ -104,7 +104,7 @@ export default class{
         const material = this.createMaterial()
         const mesh = new THREE.Mesh(geometry, material)
 
-        const halfPlaneWidth = this.size.obj.w / 4
+        const halfPlaneWidth = geometry.parameters.width / 2
         mesh.position.x = this.size.obj.w / 2 - halfPlaneWidth
         
         this.local.rotation.y = -this.param.rotation * RADIAN
@@ -144,11 +144,11 @@ export default class{
     resize(size){
         this.size = size
 
-        this.mesh.geometry.dispose()
-        this.mesh.geometry = this.createGeometry()
+        this.local.children[0].geometry.dispose()
+        this.local.children[0].geometry = this.createGeometry()
 
-        this.mesh.material.uniforms['uTexture'].value.dispose()
-        this.mesh.material.uniforms['uTexture'].value = this.createTextureFromCanvas()
+        this.local.children[0].material.uniforms['uTexture'].value.dispose()
+        this.local.children[0].material.uniforms['uTexture'].value = this.createTextureFromCanvas()
     }
 
 
@@ -158,7 +158,7 @@ export default class{
 
         this.delayUniforms['uCurrentTime'].value = currentTime
 
-        this.timeUniforms['uRand'].value = Math.floor(Math.random() * size.el.w)
+        this.timeUniforms['uRand'].value = Math.floor(Math.random() * size.el.h)
         this.timeUniforms['uOldTime'].value = currentTime
         this.timeUniforms['uCurrentTime'].value = currentTime
 

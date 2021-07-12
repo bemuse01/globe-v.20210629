@@ -51,7 +51,7 @@ export default {
                 const letter = text[~~(Math.random() * text.length)]
 
                 const x = j * fontSize + gap * j
-                const y = i * (fontSize + 1) + gap * i
+                const y = i * fontSize + gap * i
 
                 ctx.fillText(letter, x, y)
             }
