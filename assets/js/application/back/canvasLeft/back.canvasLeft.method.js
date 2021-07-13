@@ -50,7 +50,7 @@ export default {
             for(let j = 0; j < width; j++){
                 const letter = text[~~(Math.random() * text.length)]
 
-                const x = j * fontSize + gap * j
+                const x = j * fontSize + gap / 2 * j
                 const y = i * fontSize + gap * i
 
                 ctx.fillText(letter, x, y)
