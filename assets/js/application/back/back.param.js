@@ -7,7 +7,7 @@ export default {
     div: 8,
     gpuComputeWidth: 2.5,
     gpuComputeheight: 1.25,
-    fontSize: 8,
+    fontSize: 6,
     gap: 10 ,
     font: 'pixelMix',
     // text: `qwerttyuiop[]{}asdfghjkl;':"zxcvbnm,./<>1234567890-=\\~!@#$%^&*()_+|QWERTYUIOPASDFGHJKLZXCVBNM`,

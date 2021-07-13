@@ -49,7 +49,7 @@ export default {
                 // current longitude
                 data[index + 2] = lon
                 // life velocity
-                data[index + 3] = Math.random() * 0.035 + 0.005
+                data[index + 3] = Math.random() * 0.036 + 0.004
             }
         }
     },

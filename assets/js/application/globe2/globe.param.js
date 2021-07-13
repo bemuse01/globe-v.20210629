@@ -9,7 +9,7 @@ export default {
     w: 6,
     h: GRID.length,
     vel: 0.125,
-    radius: 360,
+    radius: 380,
     rotation: 30,
     reduce: 0.75,
     color: 0x39faff

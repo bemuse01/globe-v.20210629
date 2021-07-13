@@ -13,11 +13,9 @@ export default class{
     // init
     init(){
         this.param = {
-            // radius: CHILD_PARAM.radius + 5,
-            radius: BUILD_PARAM.radius + 45,
+            radius: BUILD_PARAM.radius + 51,
             seg: 128,
             layers: PROCESS,
-            // color: 0x95fcff,
             color: BUILD_PARAM.color,
             size: 0.95,
             strength: 20.0,
