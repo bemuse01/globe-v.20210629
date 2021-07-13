@@ -8,13 +8,13 @@ export default {
     gpuComputeWidth: 2.5,
     gpuComputeheight: 1.25,
     fontSize: 8,
-    gap: 6,
+    gap: 10,
     font: 'pixelMix',
     // text: `qwerttyuiop[]{}asdfghjkl;':"zxcvbnm,./<>1234567890-=\\~!@#$%^&*()_+|QWERTYUIOPASDFGHJKLZXCVBNM`,
     text: `1234567890QWERTYUIOPASDFGHJKLZXCVBNM`,
     rotation: 35,
     strength: 2.0,
     color: '57, 250, 255',
-    opacityVel: 0.02,
+    opacityVel: 0.01,
     timeVel: 16
 }
