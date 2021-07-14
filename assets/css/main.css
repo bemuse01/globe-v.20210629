@@ -68,10 +68,11 @@ div.globe-object{
 /* globe2 */
 div.globe2{
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100vmax;
-    height: 100vmin;
+    height: 100vmax;
 }
 div.globe2-object-container{
     width: 100%;

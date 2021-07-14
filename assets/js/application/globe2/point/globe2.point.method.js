@@ -1,7 +1,9 @@
 import PUBLIC_METHOD from '../../../method/method.js'
 
 export default {
-    createAttribute({grid, radius}){
+    createAttribute({grid, size, reduce}){
+        const {w, h} = size
+        const radius = Math.max(w, h) / reduce
         const position = []
 
         for(let i = 0; i < grid.length; i++){

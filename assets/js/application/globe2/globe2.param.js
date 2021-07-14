@@ -6,5 +6,6 @@ export default {
     radius: 750,
     color: 0x39faff,
     rotation: 30,
-    vel: 0.001
+    vel: 0.001,
+    reduce: 2.35
 }

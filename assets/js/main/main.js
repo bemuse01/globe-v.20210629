@@ -1,7 +1,7 @@
 import APP from '../application/app/app.build.js'
 import GLOBE from '../application/globe/globe.build.js'
 import GLOBE2 from '../application/globe2/globe2.build.js'
-import BACK from '../application/back/back.build.js'
+// import BACK from '../application/back/back.build.js'
 
 new Vue({
     el: '#wrap',
@@ -45,7 +45,7 @@ new Vue({
             }
         },
         createObject(app){
-            this.createBack(app)
+            // this.createBack(app)
             this.createGlobe(app)
             this.createGlobe2(app)
         },

@@ -78,8 +78,8 @@ export default class{
 
             // this.degree[i].phi = (this.degree[i].phi + vel) % 180
             // this.degree[i].theta = (this.degree[i].theta + vel) % 360
-            this.degree[i].phi += vel
-            this.degree[i].theta += vel
+            this.degree[i].phi = (this.degree[i].phi + vel) % 360
+            this.degree[i].theta = (this.degree[i].theta + vel) % 360
         }
 
         position.needsUpdate = true

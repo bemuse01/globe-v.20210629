@@ -2,6 +2,7 @@ import * as THREE from '../../lib/three.module.js'
 import PARAM from './globe2.param.js'
 import PUBLIC_METHOD from '../../method/method.js'
 import POINT from './point/globe2.point.build.js'
+import PARTICLE from './particle/globe2.particle.build.js'
 
 
 export default class{
@@ -15,7 +16,8 @@ export default class{
     // init
     init(app){
         this.modules = {
-            point: POINT
+            point: POINT,
+            particle: PARTICLE
         }
 
         this.initGroup()
@@ -69,7 +71,7 @@ export default class{
             const instance = this.modules[module]
             const group = this.group[module]
 
-            this.comp[module] = new instance({group, size: this.size.obj})
+            this.comp[module] = new instance({group, size: this.size})
         }
     }
 
@@ -95,7 +97,7 @@ export default class{
     animateObject(){
         for(let i in this.comp){
             if(!this.comp[i] || !this.comp[i].animate) continue
-            this.comp[i].animate({camera: this.camera})
+            this.comp[i].animate({size: this.size})
         }
     }
 

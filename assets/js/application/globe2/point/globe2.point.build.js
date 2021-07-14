@@ -4,20 +4,23 @@ import METHOD from './globe2.point.method.js'
 import BUILD_PARAM from '../globe2.param.js'
 
 export default class{
-    constructor({group}){
-        this.init()
+    constructor({group, size}){
+        this.init(size)
         this.create()
         this.add(group)    
     }
 
 
     // init
-    init(){
+    init(size){
+        this.size = size
+
         this.param = {
             color: BUILD_PARAM.color,
-            radius: BUILD_PARAM.radius,
-            size: 3.0,
-            opacity: 0.6
+            pSize: 3.0,
+            opacity: 0.6,
+            ratio: BUILD_PARAM.ratio,
+            reduce: BUILD_PARAM.reduce
         }
     }
 
@@ -40,8 +43,7 @@ export default class{
     }
     createGeometry(){
         const geometry = new THREE.BufferGeometry()
-
-        const {position} = METHOD.createAttribute({grid: GRID, ...this.param})
+        const {position} = METHOD.createAttribute({grid: GRID, size: this.size.obj, ...this.param})
 
         geometry.setAttribute('position', new THREE.BufferAttribute(position, 3))
 
@@ -52,8 +54,17 @@ export default class{
             color: this.param.color,
             transparent: true,
             opacity: this.param.opacity,
-            size: this.param.size
+            size: this.param.pSize
         })
+    }
+
+
+    // resize
+    resize(size){
+        this.size = size
+
+        this.mesh.geometry.dispose()
+        this.mesh.geometry = this.createGeometry()
     }
 
 
