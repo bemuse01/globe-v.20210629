@@ -54,7 +54,7 @@ export default class{
             color: this.param.color,
             transparent: true,
             opacity: this.param.opacity,
-            size: this.param.pSize
+            size: this.param.pSize,
         })
     }
 

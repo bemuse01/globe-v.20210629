@@ -2,6 +2,7 @@ import * as THREE from '../../../lib/three.module.js'
 import BUILD_PARAM from '../globe2.param.js'
 import METHOD from './globe2.particle.method.js'
 import PUBLIC_METHOD from '../../../method/method.js'
+import SHADER from './globe2.particle.shader.js'
 
 export default class{
     constructor({group}){
@@ -18,7 +19,8 @@ export default class{
             color: BUILD_PARAM.color,
             size: 4.0,
             velocity: 0.025,
-            reduce: 2.4
+            reduce: 2.4,
+            maxConnections: 10
         }
     }
 
@@ -62,10 +64,18 @@ export default class{
 
     }
     createLineGeometry(){
+        const geometry = new THREE.BufferAttribute()
 
+        const position = new Float32Array(this.param.count ** 2 * 3)
+        const opacity = new Float32Array(this.param.count ** 2)
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(position, 3))
+        geometry.setAttribute('aOpacity', new THREE.BufferAttribute(opacity, 1))
     }
     createLineMaterial(){
+        new THREE.ShaderMaterial({
 
+        })
     }
 
 
@@ -74,13 +84,17 @@ export default class{
         const {w, h} = size.obj
         const radius = Math.max(w, h) / this.param.reduce
 
+        let lineVertexIndex = 0
+        let lineOpacityIndex = 0
+        let connections = 0
+
         // particle
         const pPosition = this.particle.geometry.attributes.position
         const pArray = pPosition.array
 
         for(let i = 0; i < this.param.count; i++){
             const index = i * 3
-            const {position, velocity} = this.data[i]
+            const {position, velocity, connections} = this.data[i]
             const {x, y, z} = PUBLIC_METHOD.getSphereCoord2(position.phi, position.theta, radius)
 
             position.phi = (position.phi + velocity.phi) % 360
