@@ -1,13 +1,7 @@
 import * as THREE from '../../lib/three.module.js'
-import {GPUComputationRenderer} from '../../lib/GPUComputationRenderer.js'
-import PARAM from './globe.param.js'
+import PARAM from './globe2.param.js'
 import PUBLIC_METHOD from '../../method/method.js'
-import POINT from './point/globe.point.build.js'
-import BLOOM from './bloom/globe.bloom.build.js'
-import COVER from './cover/globe.cover.build.js'
-import LIGHT from './light/globe.light.build.js'
-import PARTICLE from './particle/globe.particle.build.js'
-import PARTICLE2 from './particle2/globe.particle2.build.js'
+import POINT from './point/globe2.point.build.js'
 
 
 export default class{
@@ -21,25 +15,11 @@ export default class{
     // init
     init(app){
         this.modules = {
-            bloom: BLOOM,
-            point: POINT,
-            cover: COVER,
-            light: LIGHT,
-            particle: PARTICLE,
-            particle2: PARTICLE2
+            point: POINT
         }
-
-        this.mouseX = 0
-        this.mouseY = 0
-        
-        this.cPhi = 0
-        this.cTheta = 0
-        this.vPhi = 0
-        this.vTheta = 0
 
         this.initGroup()
         this.initRenderObject()
-        this.initGPGPU(app)
     }
     initGroup(){
         this.group = {}
@@ -53,7 +33,7 @@ export default class{
         this.build = new THREE.Group()
     }
     initRenderObject(){
-        this.element = document.querySelector('.globe-object')
+        this.element = document.querySelector('.globe2-object')
 
         const {width, height} = this.element.getBoundingClientRect()
 
@@ -73,9 +53,6 @@ export default class{
             }
         }
     }
-    initGPGPU({renderer}){
-        this.gpuCompute = new GPUComputationRenderer(PARAM.w, PARAM.h, renderer)
-    }
 
 
     // add
@@ -92,21 +69,14 @@ export default class{
             const instance = this.modules[module]
             const group = this.group[module]
 
-            this.comp[module] = new instance({group, size: this.size.obj, gpuCompute: this.gpuCompute})
+            this.comp[module] = new instance({group, size: this.size.obj})
         }
-
-        this.gpuCompute.init()
     }
 
 
     // animate
     animate({app}){
-        this.gpuCompute.compute()
-
         this.render(app)
-        
-        // switch this method
-        // this.calcDegree()
         this.animateObject()
     }
     render(app){
@@ -125,17 +95,8 @@ export default class{
     animateObject(){
         for(let i in this.comp){
             if(!this.comp[i] || !this.comp[i].animate) continue
-            this.comp[i].animate({camera: this.camera, phi: this.vPhi, theta: this.vTheta})
+            this.comp[i].animate({camera: this.camera})
         }
-    }
-    calcDegree(){
-        this.vPhi += (this.cPhi - this.vPhi) * 0.05
-        this.vTheta += (this.cTheta - this.vTheta) * 0.05
-        // const {x, y, z} = PUBLIC_METHOD.getSphereCoord(this.vPhi, this.vTheta, PARAM.pos)
-
-        // this.camera.position.x = x
-        // this.camera.position.y = y
-        // this.camera.position.z = z
     }
 
 
@@ -166,15 +127,5 @@ export default class{
             if(!this.comp[i] || !this.comp[i].resize) continue
             this.comp[i].resize(this.size)
         }
-    }
-
-
-    // mouse move
-    mouseMove({clientX, clientY, width, height}){
-        const halfX = width / 2
-        const halfY = height / 2
-
-        this.cTheta = ((clientX - halfX) / -halfX) * 10
-        this.cPhi = ((clientY - halfY) / halfY) * 10
     }
 }
