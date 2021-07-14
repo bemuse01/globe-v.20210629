@@ -16,8 +16,8 @@ export default class{
         this.param = {
             color: BUILD_PARAM.color,
             radius: BUILD_PARAM.radius,
-            size: 2.0,
-            opacity: 1.0
+            size: 3.0,
+            opacity: 0.6
         }
     }
 
@@ -51,13 +51,14 @@ export default class{
         return new THREE.PointsMaterial({
             color: this.param.color,
             transparent: true,
-            opacity: this.param.opacity
+            opacity: this.param.opacity,
+            size: this.param.size
         })
     }
 
 
     // animate
     animate(){
-
+        this.mesh.rotation.y += BUILD_PARAM.vel
     }
 }

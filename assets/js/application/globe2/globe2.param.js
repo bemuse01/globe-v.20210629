@@ -5,5 +5,6 @@ export default {
     pos: 1000,
     radius: 750,
     color: 0x39faff,
-    rotation: 30
+    rotation: 30,
+    vel: 0.001
 }

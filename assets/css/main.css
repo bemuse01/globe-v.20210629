@@ -70,8 +70,8 @@ div.globe2{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100vmax;
+    height: 100vmin;
 }
 div.globe2-object-container{
     width: 100%;
