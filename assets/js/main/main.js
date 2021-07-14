@@ -1,5 +1,6 @@
 import APP from '../application/app/app.build.js'
 import GLOBE from '../application/globe/globe.build.js'
+import GLOBE2 from '../application/globe2/globe2.build.js'
 import BACK from '../application/back/back.build.js'
 
 new Vue({
@@ -46,9 +47,13 @@ new Vue({
         createObject(app){
             this.createBack(app)
             this.createGlobe(app)
+            this.createGlobe2(app)
         },
         createGlobe(app){
             OBJECT.globe = new GLOBE(app)
+        },
+        createGlobe2(app){
+            OBJECT.globe2 = new GLOBE2(app)
         },
         createBack(app){
             OBJECT.back = new BACK(app)

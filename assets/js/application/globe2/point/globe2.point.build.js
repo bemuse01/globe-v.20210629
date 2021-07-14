@@ -48,7 +48,7 @@ export default class{
         return geometry
     }
     createMaterial(){
-        return new THREE.MeshBasicMaterial({
+        return new THREE.PointsMaterial({
             color: this.param.color,
             transparent: true,
             opacity: this.param.opacity
