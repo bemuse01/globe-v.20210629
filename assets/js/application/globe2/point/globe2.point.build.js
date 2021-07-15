@@ -18,7 +18,7 @@ export default class{
         this.param = {
             color: BUILD_PARAM.color,
             pSize: 3.0,
-            opacity: 0.6,
+            opacity: 0.5,
             ratio: BUILD_PARAM.ratio,
             reduce: BUILD_PARAM.reduce
         }

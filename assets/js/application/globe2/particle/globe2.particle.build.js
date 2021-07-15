@@ -21,7 +21,7 @@ export default class{
             velocity: 0.025,
             reduce: 2.4,
             maxConnections: 10,
-            minDist: 30
+            minDist: 50
         }
     }
 
@@ -82,7 +82,7 @@ export default class{
         return geometry
     }
     createLineMaterial(){
-        new THREE.ShaderMaterial({
+        return new THREE.ShaderMaterial({
             vertexShader: SHADER.line.vertex,
             fragmentShader: SHADER.line.fragment,
             transparent: true,
@@ -90,7 +90,7 @@ export default class{
                 uColor: {value: new THREE.Color(this.param.color)}
             },
             depthTest: false
-        })
+        }) 
     }
 
 
@@ -113,8 +113,6 @@ export default class{
         const lPosArray = lPosition.array
         const lOpacity = line.attributes.aOpacity
         const lOpaArray = lOpacity.array
-
-        for(let i = 0; i < this.param.count; i++) this.data[i].connections = 0
 
         for(let i = 0; i < this.param.count; i++){
             const iIndex = i * 3
@@ -159,6 +157,8 @@ export default class{
                     curConnection++
                 }
             }
+
+            this.data[i].connections = 0
         }
 
         pPosition.needsUpdate = true
@@ -166,6 +166,5 @@ export default class{
         line.setDrawRange(0, curConnection * 2)
         lPosition.needsUpdate = true
         lOpacity.needsUpdate = true
-        console.log(lOpacity)
     }
 }
