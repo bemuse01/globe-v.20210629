@@ -28,15 +28,19 @@ export default class{
 
     // add
     add(group){
-        group.add(this.particle)
-        group.add(this.line)
+        group.add(this.local)
     }
 
 
     // create
     create(){
-        this.particle = this.createParticleMesh()
-        this.line = this.createLineMesh()
+        this.local = new THREE.Group()
+
+        const particle = this.createParticleMesh()
+        const line = this.createLineMesh()
+
+        this.local.add(particle)
+        this.local.add(line)
     }
     // particle
     createParticleMesh(){
@@ -50,7 +54,7 @@ export default class{
         const position = new Float32Array(this.param.count * 3)
         this.data = METHOD.createParticleData(this.param)
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(position, 3).setUsage(THREE.DynamicDrawUsage))
+        geometry.setAttribute('position', new THREE.BufferAttribute(position, 3))
 
         return geometry
     }
@@ -77,8 +81,6 @@ export default class{
         geometry.setAttribute('position', new THREE.BufferAttribute(position, 3).setUsage(THREE.DynamicDrawUsage))
         geometry.setAttribute('aOpacity', new THREE.BufferAttribute(opacity, 1).setUsage(THREE.DynamicDrawUsage))
 
-        console.log(geometry)
-
         return geometry
     }
     createLineMaterial(){
@@ -89,13 +91,14 @@ export default class{
             uniforms: {
                 uColor: {value: new THREE.Color(this.param.color)}
             },
-            depthTest: false
         }) 
     }
 
 
     // animate
     animate({size}){
+        this.local.rotation.y += BUILD_PARAM.vel
+
         const {w, h} = size.obj
         const radius = Math.max(w, h) / this.param.reduce
 
@@ -104,15 +107,17 @@ export default class{
         let curConnection = 0
 
         // particle
-        const pPosition = this.particle.geometry.attributes.position
+        const pPosition = this.local.children[0].geometry.attributes.position
         const pArray = pPosition.array
 
         // line
-        const line = this.line.geometry
+        const line = this.local.children[1].geometry
         const lPosition = line.attributes.position
         const lPosArray = lPosition.array
         const lOpacity = line.attributes.aOpacity
         const lOpaArray = lOpacity.array
+
+        for(let i = 0; i < this.param.count; i++) this.data[i].connections = 0
 
         for(let i = 0; i < this.param.count; i++){
             const iIndex = i * 3
@@ -157,8 +162,6 @@ export default class{
                     curConnection++
                 }
             }
-
-            this.data[i].connections = 0
         }
 
         pPosition.needsUpdate = true
