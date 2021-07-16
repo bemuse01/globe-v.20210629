@@ -76,8 +76,6 @@ export default class{
             array[index + 1] = y
             array[index + 2] = z
 
-            // this.degree[i].phi = (this.degree[i].phi + vel) % 180
-            // this.degree[i].theta = (this.degree[i].theta + vel) % 360
             this.degree[i].phi = (this.degree[i].phi + vel) % 360
             this.degree[i].theta = (this.degree[i].theta + vel) % 360
         }

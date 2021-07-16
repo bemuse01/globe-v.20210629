@@ -20,7 +20,7 @@ export default class{
             size: 4.0,
             velocity: 0.025,
             reduce: 2.4,
-            maxConnections: 10,
+            maxConnections: 6,
             minDist: 50
         }
     }
@@ -97,7 +97,7 @@ export default class{
 
     // animate
     animate({size}){
-        this.local.rotation.y += BUILD_PARAM.vel
+        this.local.rotation.y += 0.001
 
         const {w, h} = size.obj
         const radius = Math.max(w, h) / this.param.reduce

@@ -1,3 +1,5 @@
+import GRID from '../../data/grid.js'
+
 export default {
     fov: 60,
     near: 0.1,
@@ -6,6 +8,8 @@ export default {
     radius: 750,
     color: 0x39faff,
     rotation: 30,
-    vel: 0.001,
-    reduce: 2.35
+    vel: 0.125,
+    div: 2.25,
+    w: 4,
+    h: GRID.length
 }
