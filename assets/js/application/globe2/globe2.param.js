@@ -9,7 +9,7 @@ export default {
     color: 0x39faff,
     rotation: 30,
     vel: 0.125,
-    div: 2.25,
+    div: 2.2,
     w: 4,
     h: GRID.length
 }
