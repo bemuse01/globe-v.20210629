@@ -16,14 +16,14 @@ export default class{
     // init
     init(size, renderer){
         this.param = {
-            count: 60,
-            w: 1,
-            h: 60,
+            w: 50,
+            h: 50,
             div: BUILD_PARAM.div,
             color: BUILD_PARAM.color,
-            opacityVel: 0.02,
+            opacityVel: 0.025,
             timeVel: 16,
-            opacity: {min: 0.0, max: 1.0}
+            opacity: {min: 0.0, max: 1.0},
+            reduce: 0.4
         }
 
         const {w, h} = size.obj
@@ -81,7 +81,9 @@ export default class{
 
         this.timeUniforms = this.timeVariable.material.uniforms
 
-        this.timeUniforms['uRand'] = {value: 0.0}
+        this.timeUniforms['uRand1'] = {value: 0.0}
+        this.timeUniforms['uRand2'] = {value: 0.0}
+        this.timeUniforms['uChance'] = {value: 0.9}
         this.timeUniforms['uOldTime'] = {value: 0.0}
         this.timeUniforms['uCurrentTime'] = {value: 0.0}
     }
@@ -98,8 +100,8 @@ export default class{
         this.local = new THREE.Group()
         this.transform = new THREE.Group()
 
-        for(let i = 0; i < this.param.count; i++){
-            const mesh = this.createMesh()
+        for(let i = 0; i < this.param.h; i++){
+            const mesh = this.createMesh(i)
 
             this.transform.add(mesh)
         }
@@ -107,30 +109,30 @@ export default class{
         this.local.add(this.transform)
         this.local.rotation.z = -BUILD_PARAM.rotation * RADIAN
     }
-    createMesh(){
+    createMesh(index){
         const geometry = this.createGeometry()
-        const material = this.createMaterial(geometry.attributes.position.array)
-        return new THREE.LineSegments(geometry, material)
+        const material = this.createMaterial(index)
+        return new THREE.Line(geometry, material)
     }
     createGeometry(){
         const geometry = new THREE.BufferGeometry()
 
-        const {position} = METHOD.createAttribute(GRID, this.radius)
+        const {position, coord} = METHOD.createAttribute({grid: GRID, radius: this.radius, ...this.param})
 
         geometry.setAttribute('position', new THREE.BufferAttribute(position, 3))
+        geometry.setAttribute('aCoord', new THREE.BufferAttribute(coord, 1))
 
         return geometry
     }
-    createMaterial(array){
+    createMaterial(index){
         return new THREE.ShaderMaterial({
             vertexShader: SHADER.draw.vertex,
             fragmentShader: SHADER.draw.fragment,
             transparent: true,
             uniforms: {
                 uColor: {value: new THREE.Color(this.param.color)},
-                uOrigin: {value: new THREE.Vector3(array[0], array[1], array[2])},
-                uLimit: {value: new THREE.Vector3(array[3], array[4], array[5])},
                 uDelay: {value: null},
+                uIndex: {value: index}
             },
             // depthTest: false
         })
@@ -147,7 +149,8 @@ export default class{
 
         this.delayUniforms['uCurrentTime'].value = currentTime
 
-        this.timeUniforms['uRand'].value = Math.floor(Math.random() * this.param.h)
+        this.timeUniforms['uRand1'].value = Math.floor(Math.random() * this.param.h)
+        this.timeUniforms['uRand2'].value = Math.random()
         this.timeUniforms['uOldTime'].value = currentTime
         this.timeUniforms['uCurrentTime'].value = currentTime
 

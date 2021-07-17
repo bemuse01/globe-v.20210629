@@ -1,22 +1,29 @@
 import PUBLIC_METHOD from '../../../method/method.js'
 
 export default {
-    createAttribute(grid, radius){
-        const position = new Float32Array(2 * 3)
+    createAttribute({grid, radius, w, reduce}){
+        const position = new Float32Array(w * 3)
+        const coord = new Float32Array(w)
 
         const {lat, lon} = grid[~~(Math.random() * grid.length)]
 
-        for(let i = 0; i < 2; i++){
+        const reducedDist = radius * reduce
+        const dist = (radius - reducedDist) / w
+
+        for(let i = 0; i < w; i++){
             const index = i * 3
-            const rad = i === 0 ? radius * 0.6 : radius
+            // const rad = i === 0 ? radius * 0.6 : radius
+            const rad = (i + 1) * dist + reducedDist
             const {x, y, z} = PUBLIC_METHOD.getSphereCoord(-lat, lon, rad)
 
             position[index] = x
             position[index + 1] = y
             position[index + 2] = z
+
+            coord[i] = i
         }
 
-        return {position}
+        return {position, coord}
     },
     fillDelayTexture(texture, {opacityVel}){
         const {data, width, height} = texture.image
@@ -43,7 +50,7 @@ export default {
                 const index = (i * width + j) * 4
 
                 // x === each texel start time
-                data[index] = j * timeVel
+                data[index] = width * timeVel - j * timeVel
 
                 // y === update old time to start again
                 data[index + 1] = 0
