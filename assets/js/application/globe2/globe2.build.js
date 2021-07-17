@@ -4,6 +4,7 @@ import PARAM from './globe2.param.js'
 import PUBLIC_METHOD from '../../method/method.js'
 import POINT from './point/globe2.point.build.js'
 import PARTICLE from './particle/globe2.particle.build.js'
+import LINE from './line/globe2.line.build.js'
 
 
 export default class{
@@ -18,7 +19,8 @@ export default class{
     init(app){
         this.modules = {
             point: POINT,
-            particle: PARTICLE
+            particle: PARTICLE,
+            line: LINE
         }
 
         this.initGroup()
