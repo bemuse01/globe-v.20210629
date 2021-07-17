@@ -136,9 +136,9 @@ export default class{
     animate(){
         this.local.children[0].rotation.y += BUILD_PARAM.vel * RADIAN
 
-        this.gpuCompute.compute()
+        // this.gpuCompute.compute()
 
-        const currentTime = window.performance.now()
+        // const currentTime = window.performance.now()
 
         // this.delayUniforms['uCurrentTime'].value = currentTime
 

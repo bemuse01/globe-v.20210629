@@ -21,6 +21,8 @@ export default {
             ${SHADER_METHOD.executeNormalizing()}
 
             void main(){
+                // float dist = length(vPosition) / length(uOrigin);
+                // float opacity = executeNormalizing(dist, 0.0, 1.0, 1.0, length(uLimit) / length(uOrigin));
                 // vec4 delay = texelFetch(uDelay, ivec2(0, uIndex), 0);
 
                 // gl_FragColor = vec4(uColor, delay.x);
