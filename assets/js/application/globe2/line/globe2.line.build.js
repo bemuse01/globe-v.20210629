@@ -96,40 +96,35 @@ export default class{
     // create
     create(){
         this.local = new THREE.Group()
-        this.transform = new THREE.Group()
 
-        for(let i = 0; i < this.param.count; i++){
-            const mesh = this.createMesh()
+        const mesh = this.createMesh()
 
-            this.transform.add(mesh)
-        }
+        this.local.add(mesh)
 
-        this.local.add(this.transform)
         this.local.rotation.z = -BUILD_PARAM.rotation * RADIAN
     }
     createMesh(){
         const geometry = this.createGeometry()
-        const material = this.createMaterial(geometry.attributes.position.array)
+        const material = this.createMaterial()
         return new THREE.LineSegments(geometry, material)
     }
     createGeometry(){
         const geometry = new THREE.BufferGeometry()
 
-        const {position} = METHOD.createAttribute(GRID, this.radius)
+        const {position} = METHOD.createAttribute({grid: GRID, radius: this.radius, ...this.param})
+        console.log(position)
 
         geometry.setAttribute('position', new THREE.BufferAttribute(position, 3))
 
         return geometry
     }
-    createMaterial(array){
+    createMaterial(){
         return new THREE.ShaderMaterial({
             vertexShader: SHADER.draw.vertex,
             fragmentShader: SHADER.draw.fragment,
             transparent: true,
             uniforms: {
                 uColor: {value: new THREE.Color(this.param.color)},
-                uOrigin: {value: new THREE.Vector3(array[0], array[1], array[2])},
-                uLimit: {value: new THREE.Vector3(array[3], array[4], array[5])},
                 uDelay: {value: null},
             },
             // depthTest: false
@@ -139,20 +134,18 @@ export default class{
 
     // animate
     animate(){
-        this.transform.rotation.y += BUILD_PARAM.vel * RADIAN
+        this.local.children[0].rotation.y += BUILD_PARAM.vel * RADIAN
 
         this.gpuCompute.compute()
 
         const currentTime = window.performance.now()
 
-        this.delayUniforms['uCurrentTime'].value = currentTime
+        // this.delayUniforms['uCurrentTime'].value = currentTime
 
-        this.timeUniforms['uRand'].value = Math.floor(Math.random() * this.param.h)
-        this.timeUniforms['uOldTime'].value = currentTime
-        this.timeUniforms['uCurrentTime'].value = currentTime
+        // this.timeUniforms['uRand'].value = Math.floor(Math.random() * this.param.h)
+        // this.timeUniforms['uOldTime'].value = currentTime
+        // this.timeUniforms['uCurrentTime'].value = currentTime
 
-        this.transform.children.forEach(mesh => {
-            mesh.material.uniforms['uDelay'].value = this.gpuCompute.getCurrentRenderTarget(this.delayVariable).texture
-        })
+        // this.transform.children[0].material.uniforms['uDelay'].value = this.gpuCompute.getCurrentRenderTarget(this.delayVariable).texture
     }
 }
