@@ -1,21 +1,20 @@
 import * as THREE from '../../../lib/three.module.js'
+import {GPUComputationRenderer} from '../../../lib/GPUComputationRenderer.js'
 import GRID from '../../../data/grid.js'
 import METHOD from './globe2.point.method.js'
 import BUILD_PARAM from '../globe2.param.js'
 import SHADER from './globe2.point.shader.js'
 
 export default class{
-    constructor({group, size, gpuCompute}){
-        this.init(size, gpuCompute)
+    constructor({group, size, renderer}){
+        this.init(size, renderer)
         this.create()
         this.add(group)    
     }
 
 
     // init
-    init(size, gpuCompute){
-        this.gpuCompute = gpuCompute
-
+    init(size, renderer){
         this.param = {
             w: BUILD_PARAM.w,
             h: BUILD_PARAM.h,
@@ -31,11 +30,15 @@ export default class{
         const {w, h} = size.obj
         this.radius = Math.max(w, h) / this.param.div
 
-        this.initGPGPU()
+        this.initGPGPU(renderer)
     }
-    initGPGPU(){
+    initGPGPU(renderer){
+        this.gpuCompute = new GPUComputationRenderer(this.param.w, this.param.h, renderer)
+
         this.createTexture()
         this.initTexture()
+
+        this.gpuCompute.init()
     }
 
     // set texutre
@@ -142,7 +145,7 @@ export default class{
 
     // animate
     animate(){
-        // this.mesh.rotation.y += BUILD_PARAM.vel
+        this.gpuCompute.compute()
 
         this.local.children[0].material.uniforms['uPosition'].value = this.gpuCompute.getCurrentRenderTarget(this.positionVariable).texture
     }

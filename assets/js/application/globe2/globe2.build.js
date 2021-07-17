@@ -1,5 +1,4 @@
 import * as THREE from '../../lib/three.module.js'
-import {GPUComputationRenderer} from '../../lib/GPUComputationRenderer.js'
 import PARAM from './globe2.param.js'
 import PUBLIC_METHOD from '../../method/method.js'
 import POINT from './point/globe2.point.build.js'
@@ -25,7 +24,6 @@ export default class{
 
         this.initGroup()
         this.initRenderObject()
-        this.initGPGPU(app)
     }
     initGroup(){
         this.group = {}
@@ -59,9 +57,6 @@ export default class{
             }
         }
     }
-    initGPGPU({renderer}){
-        this.gpuCompute = new GPUComputationRenderer(PARAM.w, PARAM.h, renderer)
-    }
 
 
     // add
@@ -73,21 +68,19 @@ export default class{
 
 
     // create
-    create(){
+    create({renderer}){
         for(const module in this.modules){
             const instance = this.modules[module]
             const group = this.group[module]
 
-            this.comp[module] = new instance({group, size: this.size, gpuCompute: this.gpuCompute})
+            this.comp[module] = new instance({group, size: this.size, renderer: renderer})
         }
 
-        this.gpuCompute.init()
     }
 
 
     // animate
     animate({app}){
-        this.gpuCompute.compute()
 
         this.render(app)
         this.animateObject()
