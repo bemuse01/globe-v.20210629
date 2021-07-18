@@ -18,6 +18,7 @@ new Vue({
             this.animate()
 
             window.addEventListener('resize', this.onWindowResize, false)
+            document.addEventListener('touchstart', e => e.preventDefault())
             document.addEventListener('mousemove', this.onMouseMove, false)
         },
 
