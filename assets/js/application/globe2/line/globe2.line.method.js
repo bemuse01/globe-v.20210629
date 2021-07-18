@@ -5,7 +5,9 @@ export default {
         const position = new Float32Array(w * 3)
         const coord = new Float32Array(w)
 
-        const {lat, lon} = grid[~~(Math.random() * grid.length)]
+        // const {lat, lon} = grid[~~(Math.random() * grid.length)]
+        const lat = Math.random() * 180
+        const lon = Math.random() * 360
 
         const reducedDist = radius * reduce
         const dist = (radius - reducedDist) / w
@@ -14,7 +16,7 @@ export default {
             const index = i * 3
             // const rad = i === 0 ? radius * 0.6 : radius
             const rad = (i + 1) * dist + reducedDist
-            const {x, y, z} = PUBLIC_METHOD.getSphereCoord(-lat, lon, rad)
+            const {x, y, z} = PUBLIC_METHOD.getSphereCoord2(lat, lon, rad)
 
             position[index] = x
             position[index + 1] = y

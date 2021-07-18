@@ -17,13 +17,14 @@ export default class{
     init(size, renderer){
         this.param = {
             w: 50,
-            h: 50,
+            h: 60,
             div: BUILD_PARAM.div,
             color: BUILD_PARAM.color,
             opacityVel: 0.025,
             timeVel: 16,
             opacity: {min: 0.0, max: 1.0},
-            reduce: 0.4
+            reduce: 0.35,
+            chance: 0.85
         }
 
         const {w, h} = size.obj
@@ -83,7 +84,7 @@ export default class{
 
         this.timeUniforms['uRand1'] = {value: 0.0}
         this.timeUniforms['uRand2'] = {value: 0.0}
-        this.timeUniforms['uChance'] = {value: 0.9}
+        this.timeUniforms['uChance'] = {value: this.param.chance}
         this.timeUniforms['uOldTime'] = {value: 0.0}
         this.timeUniforms['uCurrentTime'] = {value: 0.0}
     }
