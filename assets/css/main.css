@@ -9,12 +9,14 @@
     margin: 0;
     padding: 0;
 }
+html, body{
+    height: 100%;
+    overflow: hidden;
+}
 body{
     background: black;
-    overflow: hidden;
-    position: relative;
+    position: fixed;
     width: 100vw;
-    height: 100vh;
 }
 div#wrap{
     position: absolute;
@@ -22,6 +24,7 @@ div#wrap{
     left: 0;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 canvas#canvas{
     position: absolute;
