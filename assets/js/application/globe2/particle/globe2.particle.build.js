@@ -41,6 +41,8 @@ export default class{
 
         this.local.add(particle)
         this.local.add(line)
+
+        this.local.rotation.z = -BUILD_PARAM.rotation * RADIAN
     }
     // particle
     createParticleMesh(){
